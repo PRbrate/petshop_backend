@@ -1,0 +1,11 @@
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\bin\Debug\net8.0\PetShop.Facade.deps.json
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\bin\Debug\net8.0\PetShop.Facade.dll
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\bin\Debug\net8.0\PetShop.Facade.pdb
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\obj\Debug\net8.0\PetShop.Facade.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\obj\Debug\net8.0\PetShop.Facade.AssemblyInfoInputs.cache
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\obj\Debug\net8.0\PetShop.Facade.AssemblyInfo.cs
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\obj\Debug\net8.0\PetShop.Facade.csproj.CoreCompileInputs.cache
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\obj\Debug\net8.0\PetShop.Facade.dll
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\obj\Debug\net8.0\refint\PetShop.Facade.dll
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\obj\Debug\net8.0\PetShop.Facade.pdb
+C:\Users\paulo\Trabalho\PetShop\PetShop.Api\PetShop.Facade\obj\Debug\net8.0\ref\PetShop.Facade.dll
