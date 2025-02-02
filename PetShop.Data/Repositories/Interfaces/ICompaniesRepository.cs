@@ -1,4 +1,5 @@
-﻿using PetShop.Core.Base.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Core.Base.Interfaces;
 using PetShop.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,9 @@ namespace PetShop.Data.Repositories.Interfaces
 {
     public interface ICompaniesRepository : IRepositoryBase<Companies>
     {
+        Task<Companies> GetByRegistrationNumberAsync(string registrationNumber);
+        Task<Companies> GetByEmailAsync(string email);
+
+
     }
 }

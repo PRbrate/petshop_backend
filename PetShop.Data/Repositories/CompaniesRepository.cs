@@ -1,4 +1,5 @@
-﻿using PetShop.Core.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Core.Base;
 using PetShop.Data.Context;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
@@ -18,5 +19,19 @@ namespace PetShop.Data.Repositories
         {
             _context = context;
         }
+
+        public async Task<Companies> GetByRegistrationNumberAsync(string registrationNumber)
+        {
+            var company = await _context.Companies.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber);
+            return company;
+        }
+
+        public async Task<Companies> GetByEmailAsync(string email)
+        {
+            var company = await _context.Companies.FirstOrDefaultAsync(x => x.Email == email);
+            return company;
+        }
+
+
     }
 }

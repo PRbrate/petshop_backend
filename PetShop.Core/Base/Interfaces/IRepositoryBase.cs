@@ -7,6 +7,7 @@
         Task<T> Create(T entity);
         Task<T> Update(T entity);
         Task<T> Delete(T entity);
+        public bool detached(T entity);
 
     }
 }

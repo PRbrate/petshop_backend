@@ -141,7 +141,7 @@ namespace PetShop.Data.Migrations
                     b.Property<string>("RegistrationNumber")
                         .IsRequired()
                         .HasMaxLength(18)
-                        .IsUnicode(false)
+                        .IsUnicode(true)
                         .HasColumnType("character varying(18)");
 
                     b.Property<string>("State")

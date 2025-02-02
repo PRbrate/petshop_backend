@@ -1,4 +1,5 @@
-﻿using PetShop.Core.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Core.Base;
 using PetShop.Data.Context;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
@@ -17,6 +18,13 @@ namespace PetShop.Data.Repositories
         public UsersRepository(PetShopContext context) : base(context)
         {
             _Context = context;
+        }
+
+        public async Task<Users> AuthenticateUser(string RegistrationNumber, string Password)
+        {
+            var usuarioAuth = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == RegistrationNumber && x.Password == Password);
+
+            return usuarioAuth;
         }
     }
 }

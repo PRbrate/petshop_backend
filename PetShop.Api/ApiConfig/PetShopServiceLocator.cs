@@ -1,7 +1,11 @@
-﻿using PetShop.Core.Base;
+﻿using PetShop.Application.Services;
+using PetShop.Application.Services.Interfaces;
+using PetShop.Core.Base;
 using PetShop.Core.Base.Interfaces;
 using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
+using PetShop.Facade.Interfaces;
+using PetShop.Facade.Services;
 
 namespace PetShop.Api.ApiConfig
 {
@@ -10,7 +14,9 @@ namespace PetShop.Api.ApiConfig
         public static void RegisterServices(this IServiceCollection services)
         {
             #region Services
-
+            services.AddScoped<IBrasilApiHttpService, BrasilApiHttpService>();
+            services.AddScoped<IcompaniesService, CompanyService>();
+            services.AddScoped<IUsersService, UsersService>();
             #endregion
 
             #region Repositories

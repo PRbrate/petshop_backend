@@ -8,6 +8,10 @@
                 .ConfigureApiBehaviorOptions(options =>
                 {
                     options.SuppressModelStateInvalidFilter = true;
+                })
+                .AddJsonOptions(options=>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
                 });
 
             builder.Services.RegisterServices();

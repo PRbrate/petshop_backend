@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Api\\PetShop.Api.csproj": {}
+    "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Api\\PetShop.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Api\\PetShop.Api.csproj": {
+    "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Api\\PetShop.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Api\\PetShop.Api.csproj",
+        "projectUniqueName": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Api\\PetShop.Api.csproj",
         "projectName": "PetShop.Api",
-        "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Api\\PetShop.Api.csproj",
+        "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Api\\PetShop.Api.csproj",
         "packagesPath": "C:\\Users\\paulo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Api\\obj\\",
+        "outputPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,20 +33,20 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\PetShop.Application.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\PetShop.Application.csproj"
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Application\\PetShop.Application.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Application\\PetShop.Application.csproj"
               },
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Core\\PetShop.Core.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Core\\PetShop.Core.csproj"
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj"
               },
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Data\\PetShop.Data.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Data\\PetShop.Data.csproj"
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Data\\PetShop.Data.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Data\\PetShop.Data.csproj"
               },
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Domain\\PetShop.Domain.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Domain\\PetShop.Domain.csproj"
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\PetShop.Domain.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\PetShop.Domain.csproj"
               },
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Facade\\PetShop.Facade.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Facade\\PetShop.Facade.csproj"
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\PetShop.Facade.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\PetShop.Facade.csproj"
               }
             }
           }
@@ -67,6 +67,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.12, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -101,14 +105,14 @@
         }
       }
     },
-    "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\PetShop.Application.csproj": {
+    "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Application\\PetShop.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\PetShop.Application.csproj",
+        "projectUniqueName": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Application\\PetShop.Application.csproj",
         "projectName": "PetShop.Application",
-        "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\PetShop.Application.csproj",
+        "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Application\\PetShop.Application.csproj",
         "packagesPath": "C:\\Users\\paulo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\obj\\",
+        "outputPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -129,7 +133,17 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Data\\PetShop.Data.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Data\\PetShop.Data.csproj"
+              },
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\PetShop.Domain.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\PetShop.Domain.csproj"
+              },
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\PetShop.Facade.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\PetShop.Facade.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -147,6 +161,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.3.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -167,14 +187,14 @@
         }
       }
     },
-    "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Core\\PetShop.Core.csproj": {
+    "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Core\\PetShop.Core.csproj",
+        "projectUniqueName": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj",
         "projectName": "PetShop.Core",
-        "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Core\\PetShop.Core.csproj",
+        "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj",
         "packagesPath": "C:\\Users\\paulo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Core\\obj\\",
+        "outputPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -239,14 +259,14 @@
         }
       }
     },
-    "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Data\\PetShop.Data.csproj": {
+    "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Data\\PetShop.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Data\\PetShop.Data.csproj",
+        "projectUniqueName": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Data\\PetShop.Data.csproj",
         "projectName": "PetShop.Data",
-        "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Data\\PetShop.Data.csproj",
+        "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Data\\PetShop.Data.csproj",
         "packagesPath": "C:\\Users\\paulo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Data\\obj\\",
+        "outputPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -268,17 +288,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\PetShop.Application.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\PetShop.Application.csproj"
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj"
               },
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Core\\PetShop.Core.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Core\\PetShop.Core.csproj"
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\PetShop.Domain.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\PetShop.Domain.csproj"
               },
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Domain\\PetShop.Domain.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Domain\\PetShop.Domain.csproj"
-              },
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Facade\\PetShop.Facade.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Facade\\PetShop.Facade.csproj"
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\PetShop.Facade.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\PetShop.Facade.csproj"
               }
             }
           }
@@ -338,84 +355,14 @@
         }
       }
     },
-    "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Domain\\PetShop.Domain.csproj": {
+    "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\PetShop.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Domain\\PetShop.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\PetShop.Domain.csproj",
         "projectName": "PetShop.Domain",
-        "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Domain\\PetShop.Domain.csproj",
+        "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\PetShop.Domain.csproj",
         "packagesPath": "C:\\Users\\paulo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Domain\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\paulo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {
-              "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\PetShop.Application.csproj": {
-                "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Application\\PetShop.Application.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Facade\\PetShop.Facade.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Facade\\PetShop.Facade.csproj",
-        "projectName": "PetShop.Facade",
-        "projectPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Facade\\PetShop.Facade.csproj",
-        "packagesPath": "C:\\Users\\paulo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paulo\\Trabalho\\PetShop\\PetShop.Api\\PetShop.Facade\\obj\\",
+        "outputPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -454,6 +401,88 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.11.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\PetShop.Facade.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\PetShop.Facade.csproj",
+        "projectName": "PetShop.Facade",
+        "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\PetShop.Facade.csproj",
+        "packagesPath": "C:\\Users\\paulo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Facade\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\paulo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj": {
+                "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
