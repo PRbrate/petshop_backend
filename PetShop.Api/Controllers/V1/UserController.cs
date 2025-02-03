@@ -35,25 +35,5 @@ namespace PetShop.Api.Controllers.V1
             }
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateUser(Users users)
-        //{
-        //    try
-        //    {
-        //        var response = await _usersService.CreateUser(users);
-
-        //        if (!response.Success)
-        //        {
-        //            return UnprocessableEntity(response.Errors);
-        //        }
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(new { msg = ex });
-        //    }
-        //}
-
-
     }
 }
