@@ -4,13 +4,14 @@ using PetShop.Application.MappingsConfig;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Core.Entities;
 using PetShop.Data.Repositories.Interfaces;
+using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
 using PetShop.Domain.Entities.Validations.Services;
 using PetShop.Facade.Interfaces;
 
 namespace PetShop.Application.Services
 {
-    public class CompanyService : IcompaniesService
+    public class CompanyService : ICompaniesService
     {
         private readonly ICompaniesRepository _companiesRepository;
         private readonly IBrasilApiHttpService _brasilApiHttpService;
@@ -101,7 +102,7 @@ namespace PetShop.Application.Services
                 response.Errors = "Invalid CNPJ";
                 return response;
             }
-            if(!EmailValidatorService.VerifyEmail(companiesFilter.Email))
+            if (!EmailValidatorService.VerifyEmail(companiesFilter.Email))
             {
                 response.Success = false;
                 response.Errors = "Invalid Email";
@@ -145,7 +146,7 @@ namespace PetShop.Application.Services
             company.Email = companiesFilter.Email;
             company.PhoneNumber = companiesFilter.PhoneNumber;
             company.Status = Status.Active;
-            
+
             await _companiesRepository.Create(company);
 
             response.Data = AutoMapperCompanies.ToCompaniesDto(company);
@@ -155,10 +156,10 @@ namespace PetShop.Application.Services
 
         public async Task<InternalResponse<CompaniesDto>> UpdateCompany(int id, CompaniesUpdateDto companiesDto)
         {
-            var companyBydData = await _companiesRepository.GetAsync(id);
-                        var response = new InternalResponse<CompaniesDto>();
+            var companyByIdData = await _companiesRepository.GetAsync(id);
+            var response = new InternalResponse<CompaniesDto>();
 
-            if (companyBydData == null) 
+            if (companyByIdData == null)
             {
                 response.Success = false;
                 response.Errors = "this Company not found";
@@ -182,19 +183,21 @@ namespace PetShop.Application.Services
                 response.Errors = "this Email already exists";
                 return response;
             }
-            
-            var company = AutoMapperCompanies.ToCompanies(companiesDto);
-            _companiesRepository.detached(companyBydData);
-            company.PhoneNumber = new string(company.PhoneNumber.Where(char.IsDigit).ToArray());
-            company.RegistrationNumber = companyBydData.RegistrationNumber;
-            company.CompanyId = companyBydData.CompanyId;
-            company.Status = companyBydData.Status;
-            company.UpdatedAt = DateTime.Now;
 
-            await _companiesRepository.Update(company);
+            ////var company = AutoMapperCompanies.ToCompanies(companiesDto);
+            //_companiesRepository.Detached(companyByIdData);
+            //company.PhoneNumber = new string(company.PhoneNumber.Where(char.IsDigit).ToArray());
+            //company.RegistrationNumber = companyByIdData.RegistrationNumber;
+            //company.CompanyId = companyByIdData.CompanyId;
+            //company.Status = companyByIdData.Status;
+            //company.UpdatedAt = DateTime.Now;
+
+            //await _companiesRepository.Update(company);
 
             return response;
+
         }
+
 
     }
 }

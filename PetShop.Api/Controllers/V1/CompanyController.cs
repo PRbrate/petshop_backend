@@ -10,12 +10,12 @@ namespace PetShop.Api.Controllers.V1
 {
     [Route("api/v1/companies")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    
     public class CompanyController : ControllerBase
     {
-        private readonly IcompaniesService _companiesService;
+        private readonly ICompaniesService _companiesService;
 
-        public CompanyController(IcompaniesService companiesService)
+        public CompanyController(ICompaniesService companiesService)
         {
             _companiesService = companiesService;
         }

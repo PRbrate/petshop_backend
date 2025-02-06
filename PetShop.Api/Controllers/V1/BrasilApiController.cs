@@ -24,5 +24,12 @@ namespace PetShop.Api.Controllers.V1
 
             return Ok(company.Data);
         }
+        [HttpGet("GetCep/{cep}")]
+        public async Task<IActionResult> GetCep(string cep)
+        {
+            var company = await _brasilApiHttpService.GetCep(cep);
+
+            return Ok(company.Data);
+        }
     }
 }

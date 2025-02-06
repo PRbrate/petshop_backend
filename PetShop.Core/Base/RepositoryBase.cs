@@ -51,7 +51,7 @@ namespace PetShop.Core.Base
             return entity;
         }
 
-        public bool detached(T entity)
+        public bool Detached(T entity)
         {
             _dbSet.Entry(entity).State = EntityState.Detached;
             return true;

@@ -38,18 +38,32 @@ namespace PetShop.Application.MappingsConfig
             Country = "Brazil"
         };
 
-        public static Companies ToCompanies(this CompaniesUpdateDto companiesDto) => new Companies
+        public static void ToCompanies(this Companies existingCompany, CompaniesUpdateDto companiesDto)
         {
-            CompanyName = companiesDto.CompanyName,
-            TradeName = companiesDto.TradeName,
-            Email = companiesDto.Email,
-            PhoneNumber = companiesDto.PhoneNumber,
-            Address = companiesDto.Address,
-            City = companiesDto.City,
-            State = companiesDto.State,
-            PostalCode = companiesDto.PostalCode,
-            Country = "Brazil"
-        };
+            if (!string.IsNullOrWhiteSpace(companiesDto.CompanyName))
+                existingCompany.CompanyName = companiesDto.CompanyName;
+
+            if (!string.IsNullOrWhiteSpace(companiesDto.TradeName))
+                existingCompany.TradeName = companiesDto.TradeName;
+
+            if (!string.IsNullOrWhiteSpace(companiesDto.Email))
+                existingCompany.Email = companiesDto.Email;
+
+            if (!string.IsNullOrWhiteSpace(companiesDto.PhoneNumber))
+                existingCompany.PhoneNumber = new string(companiesDto.PhoneNumber.Where(char.IsDigit).ToArray());
+
+            if (!string.IsNullOrWhiteSpace(companiesDto.Address))
+                existingCompany.Address = companiesDto.Address;
+
+            if (!string.IsNullOrWhiteSpace(companiesDto.City))
+                existingCompany.City = companiesDto.City;
+
+            if (!string.IsNullOrWhiteSpace(companiesDto.State))
+                existingCompany.State = companiesDto.State;
+
+            if (!string.IsNullOrWhiteSpace(companiesDto.PostalCode))
+                existingCompany.PostalCode = companiesDto.PostalCode;
+        }
 
         public static CompaniesDto ToCompaniesDto(this Companies companies) => new
         (

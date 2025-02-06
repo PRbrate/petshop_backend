@@ -26,7 +26,6 @@ namespace PetShop.Domain.Entities
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
 
-
         public ICollection<Appointments> Appointments { get; set; }
 
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PetShop.Application.Services.Interfaces
 {
-    public interface IcompaniesService
+    public interface ICompaniesService
     {
         Task<InternalResponse<CompaniesDto>> CreateCompany(CompaniesFilter companiesFilter);
         Task<InternalResponse<CompaniesDto>> UpdateCompany(int id, CompaniesUpdateDto companiesDto);

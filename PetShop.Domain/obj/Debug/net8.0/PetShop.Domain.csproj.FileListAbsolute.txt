@@ -26,3 +26,16 @@ C:\Users\paulo\source\repos\PRbrate\petshop_backend\PetShop.Domain\obj\Debug\net
 C:\Users\paulo\source\repos\PRbrate\petshop_backend\PetShop.Domain\obj\Debug\net8.0\refint\PetShop.Domain.dll
 C:\Users\paulo\source\repos\PRbrate\petshop_backend\PetShop.Domain\obj\Debug\net8.0\PetShop.Domain.pdb
 C:\Users\paulo\source\repos\PRbrate\petshop_backend\PetShop.Domain\obj\Debug\net8.0\ref\PetShop.Domain.dll
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\bin\Debug\net8.0\PetShop.Domain.deps.json
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\bin\Debug\net8.0\PetShop.Domain.dll
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\bin\Debug\net8.0\PetShop.Domain.pdb
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\PetShop.Domain.csproj.AssemblyReference.cache
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\PetShop.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\PetShop.Domain.AssemblyInfoInputs.cache
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\PetShop.Domain.AssemblyInfo.cs
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\PetShop.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\PetShop.Domain.sourcelink.json
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\PetShop.Domain.dll
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\refint\PetShop.Domain.dll
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\PetShop.Domain.pdb
+C:\Users\Raphael\source\repos\impinheiro\petshop_backend\PetShop.Domain\obj\Debug\net8.0\ref\PetShop.Domain.dll

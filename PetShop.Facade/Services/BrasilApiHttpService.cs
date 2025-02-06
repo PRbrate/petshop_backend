@@ -18,7 +18,7 @@ namespace PetShop.Facade.Services
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cnpj/v1/{cnpj}");
             var response = new Response<CnpjResponse>();
 
-            using (var client = new HttpClient()) 
+            using (var client = new HttpClient())
             {
                 var responseBrasilApi = await client.SendAsync(request);
                 var contentResponse = await responseBrasilApi.Content.ReadAsStringAsync();
@@ -32,10 +32,38 @@ namespace PetShop.Facade.Services
                 else
                 {
                     response.Success = false;
-                    response.Errors =  JsonConvert.DeserializeObject<ExpandoObject>(contentResponse);
+                    response.Errors = JsonConvert.DeserializeObject<ExpandoObject>(contentResponse);
                 }
                 return response;
             }
+        }
+
+        public async Task<Response<CepResponse>> GetCep(string cep)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cep/v1/{cep}");
+            var response = new Response<CepResponse>();
+
+
+            using (var client = new HttpClient())
+            {
+                var responseBrasilApi = await client.SendAsync(request);
+                var contentResponse = await responseBrasilApi.Content.ReadAsStringAsync();
+                var objResponse = JsonConvert.DeserializeObject<CepResponse>(contentResponse);
+
+                if (responseBrasilApi.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = objResponse;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Errors = JsonConvert.DeserializeObject<ExpandoObject>(contentResponse);
+                }
+                return response;
+            }
+
+
         }
     }
 }

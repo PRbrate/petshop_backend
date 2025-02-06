@@ -15,7 +15,7 @@ namespace PetShop.Api.ApiConfig
         {
             #region Services
             services.AddScoped<IBrasilApiHttpService, BrasilApiHttpService>();
-            services.AddScoped<IcompaniesService, CompanyService>();
+            services.AddScoped<ICompaniesService, CompanyService>();
             services.AddScoped<IUsersService, UsersService>();
             #endregion
 

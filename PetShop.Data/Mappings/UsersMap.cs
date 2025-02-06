@@ -15,7 +15,8 @@ namespace PetShop.Data.Mappings
                 .HasMaxLength(255);
 
             builder.Property(p => p.RegistrationNumber)
-                .HasMaxLength(11);
+                .HasMaxLength(11)
+                .IsUnicode(true);
 
             builder.Property(p => p.Email)
                 .IsRequired()

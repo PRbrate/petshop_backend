@@ -6,5 +6,8 @@ namespace PetShop.Data.Repositories.Interfaces
     public interface IUsersRepository : IRepositoryBase<Users>
     {
         Task<Users> AuthenticateUser(string RegistrationNumber, string Password);
+        Task<Users> GetUserByRegistrationNumber(string RegistrationNumber);
+        Task<Users> GetByEmailAsync(string email);
+        Task<List<Users>> GetAllByCompanyId(int companyId);
     }
 }

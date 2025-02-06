@@ -20,11 +20,33 @@ namespace PetShop.Data.Repositories
             _Context = context;
         }
 
-        public async Task<Users> AuthenticateUser(string RegistrationNumber, string Password)
+        public async Task<Users> AuthenticateUser(string registrationNumber, string password)
         {
-            var usuarioAuth = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == RegistrationNumber && x.Password == Password);
+            var userAuth = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber && x.Password == password);
 
-            return usuarioAuth;
+            return userAuth;
+        }
+
+        public async Task<List<Users>> GetAllByCompanyId(int companyId)
+        {
+            var usersCompany = await _Context.Users
+                .Where(x => x.CompanyId == companyId)
+                .ToListAsync();
+            return usersCompany;
+        }
+
+        public async Task<Users> GetByEmailAsync(string email)
+        {
+            var company = await _Context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return company;
+        }
+
+
+        public async Task<Users> GetUserByRegistrationNumber(string registrationNumber)
+        {
+            var usersRegistratioNumber = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber);
+
+            return usersRegistratioNumber;
         }
     }
 }

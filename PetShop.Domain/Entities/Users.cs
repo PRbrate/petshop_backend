@@ -25,10 +25,10 @@ namespace PetShop.Domain.Entities
         public string Phone { get; set; }
         public UserType UserType { get; set; }
         public string Address { get; set; }
-        public string city { get; set; }
-        public string state { get; set; }
-        public string country { get; set; }
-        public string postal_code { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
+        public string PostalCode { get; set; }
         
         [JsonIgnore]
         public Status Status { get; set; }
