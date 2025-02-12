@@ -5,7 +5,7 @@ out/
 *.log
 *.cache
 *.pdb
-.vs
+.vs/
 
 
 .vscode/
