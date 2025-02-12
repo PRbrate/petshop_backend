@@ -14,7 +14,7 @@ namespace PetShop.Facade.Services
     public class BrasilApiHttpService : IBrasilApiHttpService
     {
         public async Task<Response<CnpjResponse>> GetCnpj(string cnpj)
-        {
+            {
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cnpj/v1/{cnpj}");
             var response = new Response<CnpjResponse>();
 
@@ -40,6 +40,8 @@ namespace PetShop.Facade.Services
 
         public async Task<Response<CepResponse>> GetCep(string cep)
         {
+            cep = new string(cep.Where(char.IsDigit).ToArray());
+
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cep/v1/{cep}");
             var response = new Response<CepResponse>();
 

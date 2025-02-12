@@ -27,26 +27,23 @@ namespace PetShop.Data.Repositories
             return userAuth;
         }
 
-        public async Task<List<Users>> GetAllByCompanyId(int companyId)
-        {
-            var usersCompany = await _Context.Users
-                .Where(x => x.CompanyId == companyId)
-                .ToListAsync();
-            return usersCompany;
-        }
-
         public async Task<Users> GetByEmailAsync(string email)
         {
             var company = await _Context.Users.FirstOrDefaultAsync(x => x.Email == email);
             return company;
         }
 
-
         public async Task<Users> GetUserByRegistrationNumber(string registrationNumber)
         {
             var usersRegistratioNumber = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber);
 
             return usersRegistratioNumber;
+        }
+
+        public async Task<List<Users>> GetByPhoneNumber(string phoneNumber)
+        {
+            var usersPhoneNumber = await _Context.Users.Where(u=> u.Phone == phoneNumber).ToListAsync();
+            return usersPhoneNumber;
         }
     }
 }

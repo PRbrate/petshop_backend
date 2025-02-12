@@ -11,7 +11,7 @@ namespace PetShop.Application.Services.Interfaces
 {
     public interface ICompaniesService
     {
-        Task<InternalResponse<CompaniesDto>> CreateCompany(CompaniesFilter companiesFilter);
+        Task<InternalResponse<CompaniesDto>> CreateCompany(CompaniesDto companiesDto);
         Task<InternalResponse<CompaniesDto>> UpdateCompany(int id, CompaniesUpdateDto companiesDto);
         Task<bool> DeleteCompany(int id);
         Task<InternalResponse<CompaniesDto>> GetCompany(int id);

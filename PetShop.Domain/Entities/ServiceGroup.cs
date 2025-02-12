@@ -8,7 +8,5 @@
         public int ServiceId { get; set; }
         public Services Services { get; set; }
 
-        public int CompanyId { get; set; }
-        public Companies Companies { get; set; }
     }
 }

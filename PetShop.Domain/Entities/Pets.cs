@@ -10,12 +10,8 @@ namespace PetShop.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PetId { get; set; }
 
-        public int CompanyId { get; set; }
-        public Companies Companies { get; set; }
-
         public int UserId { get; set; }
         public Users User { get; set; }
-
 
         public string FullName { get; set; }
         public Species Species { get; set; }

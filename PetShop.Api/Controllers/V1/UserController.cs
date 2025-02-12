@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetShop.Application.DTO;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Core.Entities;
@@ -8,6 +9,8 @@ namespace PetShop.Api.Controllers.V1
 {
     [Route("api/v1/users")]
     [ApiController]
+    [Authorize]
+
     public class UserController : ControllerBase
     {
         private readonly IUsersService _usersService;
@@ -18,6 +21,7 @@ namespace PetShop.Api.Controllers.V1
         }
 
         [HttpPost("Authenticate")]
+        [AllowAnonymous]
         public async Task<IActionResult> AuthenticateUser(string RegitrationNumber, string password)
         {
             try
@@ -37,11 +41,12 @@ namespace PetShop.Api.Controllers.V1
             }
         }
         [HttpPost("CreateUser")]
-        public async Task<IActionResult> CreateUser(UserDto users)
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateUser(UserDto users, string code)
         {
             try
             {
-                var response = await _usersService.CreateUser(users);
+                var response = await _usersService.CreateUser(users, code);
 
                 if (!response.Success)
                 {
@@ -57,6 +62,7 @@ namespace PetShop.Api.Controllers.V1
         }
 
         [HttpGet]
+        [Authorize(Roles = "Employer, Admin")]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -76,6 +82,7 @@ namespace PetShop.Api.Controllers.V1
             }
         }
         [HttpGet("GetById/{userId}")]
+        [Authorize(Roles = "Employer, Admin")]
         public async Task<IActionResult> GetById(int userId)
         {
             {
@@ -99,13 +106,64 @@ namespace PetShop.Api.Controllers.V1
             }
         }
 
-        [HttpGet("GetAllByCompanyId/{companyId}")]
-        public async Task<IActionResult> GetAllByCompanyId(int companyId)
+        [HttpGet("GetByRegistrationNumber/{registrationNumber}")]
+        [Authorize(Roles = "Employer, Admin")]
+        public async Task<IActionResult> GetByRegistrationNumber(string registrationNumber)
         {
             {
                 try
                 {
-                    var response = await _usersService.GetAllByCompanyId(companyId);
+                    var response = await _usersService.GetByRegistrationNumber(registrationNumber);
+
+                    if (!response.Success)
+                    {
+                        return UnprocessableEntity(response.Errors);
+                    }
+
+                    return Ok(response.Data);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex);
+
+
+                }
+            }
+        }
+
+        [HttpGet("GetByEmail/{email}")]
+        [Authorize(Roles = "Employer, Admin")]
+        public async Task<IActionResult> GetById(string email)
+        {
+            {
+                try
+                {
+                    var response = await _usersService.GetByEmail(email);
+
+                    if (!response.Success)
+                    {
+                        return UnprocessableEntity(response.Errors);
+                    }
+
+                    return Ok(response.Data);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex);
+
+
+                }
+            }
+        }
+
+        [HttpGet("GetByPhoneNumber/{phonenumber}")]
+        [Authorize(Roles = "Employer, Admin")]
+        public async Task<IActionResult> GetByPhoneNumber(string phonenumber)
+        {
+            {
+                try
+                {
+                    var response = await _usersService.GetByPhoneNumber(phonenumber);
 
                     if (!response.Success)
                     {
@@ -124,7 +182,7 @@ namespace PetShop.Api.Controllers.V1
         }
 
         [HttpDelete("{userId}")]
-
+        [Authorize(Roles = "Employer, Admin")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
             var users = await _usersService.DeleteUser(userId);
@@ -135,14 +193,14 @@ namespace PetShop.Api.Controllers.V1
             return Ok();
         }
 
-        [HttpPut("{userId}")]
-
-        public async Task<IActionResult> UpdateUser(int userId, UserDto userDto)
+        [HttpPut("{code}/{userId}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser(string code, int userId, UserDto userDto)
         {
 
             try
             {
-                var companies = await _usersService.UpdateUser(userId, userDto);
+                var companies = await _usersService.UpdateUser(userId, userDto, code);
                 if (!companies.Success)
                 {
                     return UnprocessableEntity(companies.Errors);

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace PetShop.Application.MappingsConfig
 {
@@ -28,9 +29,9 @@ namespace PetShop.Application.MappingsConfig
             CompanyId = companiesDto.CompanyId,
             CompanyName = companiesDto.CompanyName,
             TradeName = companiesDto.TradeName,
-            RegistrationNumber = companiesDto.RegistrationNumber,
+            RegistrationNumber = new string(companiesDto.RegistrationNumber.Where(char.IsDigit).ToArray()),
             Email = companiesDto.Email,
-            PhoneNumber = companiesDto.PhoneNumber,
+            PhoneNumber = new string(companiesDto.PhoneNumber.Where(char.IsDigit).ToArray()),
             Address = companiesDto.Address,
             City = companiesDto.City,
             State = companiesDto.State,
@@ -40,28 +41,28 @@ namespace PetShop.Application.MappingsConfig
 
         public static void ToCompanies(this Companies existingCompany, CompaniesUpdateDto companiesDto)
         {
-            if (!string.IsNullOrWhiteSpace(companiesDto.CompanyName))
+            if (!string.IsNullOrWhiteSpace(companiesDto.CompanyName) && companiesDto.CompanyName != "string")
                 existingCompany.CompanyName = companiesDto.CompanyName;
 
-            if (!string.IsNullOrWhiteSpace(companiesDto.TradeName))
+            if (!string.IsNullOrWhiteSpace(companiesDto.TradeName) && companiesDto.TradeName != "string")
                 existingCompany.TradeName = companiesDto.TradeName;
 
-            if (!string.IsNullOrWhiteSpace(companiesDto.Email))
+            if (!string.IsNullOrWhiteSpace(companiesDto.Email) && companiesDto.Email != "string")
                 existingCompany.Email = companiesDto.Email;
 
-            if (!string.IsNullOrWhiteSpace(companiesDto.PhoneNumber))
+            if (!string.IsNullOrWhiteSpace(companiesDto.PhoneNumber) && companiesDto.PhoneNumber != "string")
                 existingCompany.PhoneNumber = new string(companiesDto.PhoneNumber.Where(char.IsDigit).ToArray());
 
-            if (!string.IsNullOrWhiteSpace(companiesDto.Address))
+            if (!string.IsNullOrWhiteSpace(companiesDto.Address) && companiesDto.Address != "string")
                 existingCompany.Address = companiesDto.Address;
 
-            if (!string.IsNullOrWhiteSpace(companiesDto.City))
+            if (!string.IsNullOrWhiteSpace(companiesDto.City) && companiesDto.City != "string")
                 existingCompany.City = companiesDto.City;
 
-            if (!string.IsNullOrWhiteSpace(companiesDto.State))
+            if (!string.IsNullOrWhiteSpace(companiesDto.State) && companiesDto.State != "string")
                 existingCompany.State = companiesDto.State;
 
-            if (!string.IsNullOrWhiteSpace(companiesDto.PostalCode))
+            if (!string.IsNullOrWhiteSpace(companiesDto.PostalCode) && companiesDto.PostalCode != "string")
                 existingCompany.PostalCode = companiesDto.PostalCode;
         }
 
@@ -79,7 +80,6 @@ namespace PetShop.Application.MappingsConfig
             companies.Country,
             companies.PostalCode,
             companies.Status.ToString()
-
         );
 
 

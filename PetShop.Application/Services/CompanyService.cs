@@ -92,33 +92,33 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public async Task<InternalResponse<CompaniesDto>> CreateCompany(CompaniesFilter companiesFilter)
+        public async Task<InternalResponse<CompaniesDto>> CreateCompany(CompaniesDto companiesDto)
         {
+
             var response = new InternalResponse<CompaniesDto>();
 
-            if (!CnpjValidatorService.ValidarCnpj(companiesFilter.RegistrationNumber))
+            if (!CnpjValidatorService.ValidarCnpj(companiesDto.RegistrationNumber))
             {
                 response.Success = false;
                 response.Errors = "Invalid CNPJ";
                 return response;
             }
-            if (!EmailValidatorService.VerifyEmail(companiesFilter.Email))
+            if (!EmailValidatorService.VerifyEmail(companiesDto.Email))
             {
                 response.Success = false;
                 response.Errors = "Invalid Email";
                 return response;
             }
-            if (!PhoneNumberValidatorService.VerifyPhoneNumber(companiesFilter.PhoneNumber))
+            if (!PhoneNumberValidatorService.VerifyPhoneNumber(companiesDto.PhoneNumber))
             {
                 response.Success = false;
                 response.Errors = "Invalid PhoneNumber";
                 return response;
             }
+            var company = AutoMapperCompanies.ToCompanies(companiesDto);
 
-            companiesFilter.RegistrationNumber = new string(companiesFilter.RegistrationNumber.Where(char.IsDigit).ToArray());
-            companiesFilter.PhoneNumber = new string(companiesFilter.PhoneNumber.Where(char.IsDigit).ToArray());
 
-            var companyGet = await _brasilApiHttpService.GetCnpj(companiesFilter.RegistrationNumber);
+            var companyGet = await _brasilApiHttpService.GetCnpj(companiesDto.RegistrationNumber);
 
             if (companyGet.Data.descricao_situacao_cadastral != "ATIVA")
             {
@@ -126,25 +126,20 @@ namespace PetShop.Application.Services
                 response.Errors = "We can only register companies with active status";
                 return response;
             }
-
-
-            if (await _companiesRepository.GetByEmailAsync(companiesFilter.Email) != null)
+            if (await _companiesRepository.GetByEmailAsync(companiesDto.Email) != null)
             {
                 response.Success = false;
                 response.Errors = "this Email already exists";
                 return response;
             }
 
-            if (await _companiesRepository.GetByRegistrationNumberAsync(companiesFilter.RegistrationNumber) != null)
+            if (await _companiesRepository.GetByRegistrationNumberAsync(companiesDto.RegistrationNumber) != null)
             {
                 response.Success = false;
                 response.Errors = "this RegistrationNumber already exists";
                 return response;
             }
 
-            var company = AutoMapperCompanies.CnpjToCompanies(companyGet.Data);
-            company.Email = companiesFilter.Email;
-            company.PhoneNumber = companiesFilter.PhoneNumber;
             company.Status = Status.Active;
 
             await _companiesRepository.Create(company);
@@ -177,22 +172,17 @@ namespace PetShop.Application.Services
                 response.Errors = "Invalid PhoneNumber";
                 return response;
             }
-            if (await _companiesRepository.GetByEmailAsync(companiesDto.Email) != null)
+            if (await _companiesRepository.GetByEmailAsync(companiesDto.Email) != null && companiesDto.Email != companyByIdData.Email)
             {
                 response.Success = false;
                 response.Errors = "this Email already exists";
                 return response;
             }
 
-            ////var company = AutoMapperCompanies.ToCompanies(companiesDto);
-            //_companiesRepository.Detached(companyByIdData);
-            //company.PhoneNumber = new string(company.PhoneNumber.Where(char.IsDigit).ToArray());
-            //company.RegistrationNumber = companyByIdData.RegistrationNumber;
-            //company.CompanyId = companyByIdData.CompanyId;
-            //company.Status = companyByIdData.Status;
-            //company.UpdatedAt = DateTime.Now;
-
-            //await _companiesRepository.Update(company);
+            AutoMapperCompanies.ToCompanies(companyByIdData, companiesDto);
+            companyByIdData.UpdatedAt = DateTime.Now;
+            _companiesRepository.Detached(companyByIdData);
+            await _companiesRepository.Update(companyByIdData);
 
             return response;
 

@@ -1,33 +1,27 @@
 ﻿using PetShop.Application.DTO;
-using PetShop.Application.Filters;
 using PetShop.Application.MappingsConfig;
 using PetShop.Application.Services.Interfaces;
-using PetShop.Core;
+using PetShop.Application.Services.OtherServices;
 using PetShop.Core.Entities;
-using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
 using PetShop.Domain.Entities.Validations.Services;
-using PetShop.Facade.Interfaces;
-using PetShop.Facade.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetShop.Application.Services
 {
     public class UsersService : IUsersService
     {
-        private readonly IUsersRepository _usersRepository;
-        private readonly IBrasilApiHttpService _brasilApiHttpService;
 
-        public UsersService(IUsersRepository usersRepository, IBrasilApiHttpService brasilApiHttpService)
+
+        private readonly IUsersRepository _usersRepository;
+        private readonly MemoryCacheService _memoryCacheService;
+
+
+        public UsersService(IUsersRepository usersRepository, MemoryCacheService memoryCache)
         {
             _usersRepository = usersRepository;
-            _brasilApiHttpService = brasilApiHttpService;
+            _memoryCacheService = memoryCache;
         }
 
         public async Task<InternalResponse<string>> Authenticate(string RegistrationNumber, string password)
@@ -72,8 +66,7 @@ namespace PetShop.Application.Services
             return response;
 
         }
-
-        public async Task<InternalResponse<Users>> CreateUser(UserDto usersDto)
+        public async Task<InternalResponse<Users>> CreateUser(UserDto usersDto, string code)
         {
 
             var response = new InternalResponse<Users>();
@@ -108,22 +101,33 @@ namespace PetShop.Application.Services
                 return response;
             }
 
-            var address = await _brasilApiHttpService.GetCep(usersDto.Cep);
-            var user = AutoMapperUsers.ToUsers(usersDto, address);
+            string storyCode = _memoryCacheService.GetCode(usersDto.Email);
 
-            user.RegistrationNumber = new string(user.RegistrationNumber.Where(char.IsDigit).ToArray());
-            user.Phone = new string(user.Phone.Where(char.IsDigit).ToArray());
-            user.PostalCode = new string(user.PostalCode.Where(char.IsDigit).ToArray());
+            if (storyCode == null)
+            {
+                response.Success = false;
+                response.Errors = "Expired or invalid code!";
+                return response;
+            }
+            if (storyCode != code)
+            {
+                response.Success = false;
+                response.Errors = "Incorrect code! or expired";
+                return response;
+            }
+
+            _memoryCacheService.RemoveCode(usersDto.Email);
+
+            var user = AutoMapperUsers.ToUsers(usersDto);
 
             user.Password = PasswordCryptographyService.Cryptography(user.Password);
             user.UserType = UserType.Costumer;
             await _usersRepository.Create(user);
-
             response.Success = true;
+
             return response;
 
         }
-
         public async Task<bool> DeleteUser(int id)
         {
             var getUser = await _usersRepository.GetAsync(id);
@@ -134,6 +138,8 @@ namespace PetShop.Application.Services
             await _usersRepository.Delete(getUser);
             return true;
         }
+
+        #region gets
         public async Task<InternalResponse<List<UserDataDto>>> GetAll()
         {
             var list = new List<UserDataDto>();
@@ -154,15 +160,43 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public async Task<InternalResponse<List<UserDataDto>>> GetAllByCompanyId(int companyId)
+        public async Task<InternalResponse<UserDataDto>> GetByRegistrationNumber(string registrationNumber)
         {
-            var list = new List<UserDataDto>();
-            var response = new InternalResponse<List<UserDataDto>>();
-            var user = await _usersRepository.GetAllByCompanyId(companyId);
+            var response = new InternalResponse<UserDataDto>();
+            registrationNumber = new string(registrationNumber.Where(char.IsDigit).ToArray());
+            var user = await _usersRepository.GetUserByRegistrationNumber(registrationNumber);
             if (user == null)
             {
                 response.Success = false;
-                response.Errors = "There is no such data on the database";
+                response.Errors = "There is no such user with that RegistrationNumber on the database";
+                return response;
+            }
+            response.Data = AutoMapperUsers.ToUserDto(user);
+            return response;
+        }
+
+        public async Task<InternalResponse<UserDataDto>> GetByEmail(string email)
+        {
+            var response = new InternalResponse<UserDataDto>();
+            var user = await _usersRepository.GetByEmailAsync(email);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Errors = "There is no such user with that Email on the database";
+                return response;
+            }
+            response.Data = AutoMapperUsers.ToUserDto(user);
+            return response;
+        }
+        public async Task<InternalResponse<List<UserDataDto>>> GetByPhoneNumber(string phoneNumber)
+        {
+            var list = new List<UserDataDto>();
+            var response = new InternalResponse<List<UserDataDto>>();
+            var user = await _usersRepository.GetByPhoneNumber(phoneNumber);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Errors = "There is no such data with PhoneNumber on the database";
                 return response;
             }
 
@@ -173,7 +207,6 @@ namespace PetShop.Application.Services
             response.Data = list;
             return response;
         }
-
         public async Task<InternalResponse<UserDataDto>> GetById(int id)
         {
             var response = new InternalResponse<UserDataDto>();
@@ -187,8 +220,10 @@ namespace PetShop.Application.Services
             response.Data = AutoMapperUsers.ToUserDto(user);
             return response;
         }
+        #endregion
 
-        public async Task<InternalResponse<UserDataDto>> UpdateUser(int id, UserDto userDto)
+        #region update
+        public async Task<InternalResponse<UserDataDto>> UpdateUser(int id, UserDto userDto, string code)
         {
             var userByIdData = await _usersRepository.GetAsync(id);
             var response = new InternalResponse<UserDataDto>();
@@ -207,6 +242,7 @@ namespace PetShop.Application.Services
                     response.Errors = "Invalid Email";
                     return response;
                 }
+
             }
             if (userDto.Phone != null)
             {
@@ -224,15 +260,26 @@ namespace PetShop.Application.Services
                 response.Errors = "this Email already exists";
                 return response;
             }
-            var address = await _brasilApiHttpService.GetCep(userByIdData.PostalCode);
 
-            if (userDto.Cep != null)
+            string storyCode = _memoryCacheService.GetCode(userDto.Email);
+
+            if (storyCode == null)
             {
-                address = await _brasilApiHttpService.GetCep(userDto.Cep);
+                response.Success = false;
+                response.Errors = "Expired or invalid code!";
+                return response;
             }
+            if (storyCode != code)
+            {
+                response.Success = false;
+                response.Errors = "Incorrect code! or expired";
+                return response;
+            }
+            _memoryCacheService.RemoveCode(userDto.Email);
 
-            var user = AutoMapperUsers.ToUsers(userDto, address);
+            var user = AutoMapperUsers.ToUsers(userDto);
             userByIdData = InsertUser(userByIdData, user);
+
             _usersRepository.Detached(userByIdData);
             userByIdData.UpdatedAt = DateTime.Now;
             await _usersRepository.Update(userByIdData);
@@ -260,5 +307,6 @@ namespace PetShop.Application.Services
             return user;
 
         }
+        #endregion
     }
 }

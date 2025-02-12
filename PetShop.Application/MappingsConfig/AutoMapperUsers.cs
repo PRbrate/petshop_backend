@@ -12,32 +12,19 @@ namespace PetShop.Application.MappingsConfig
 {
     public static class AutoMapperUsers
     {
-        public static Users ToUsers(this UserDto usersDto, Response<CepResponse> response) => new Users
+        public static Users ToUsers(this UserDto usersDto) => new Users
         {
+
             FullName = usersDto.FullName,
-            RegistrationNumber = usersDto.RegistrationNumber,
-            CompanyId = usersDto.CompanyId,
+            RegistrationNumber = new string(usersDto.RegistrationNumber.Where(char.IsDigit).ToArray()),            
             Email = usersDto.Email,
             Password = usersDto.Password,
-            Phone = usersDto.Phone,
-            PostalCode = response.Data.cep,
-            State = response.Data.state,
-            Address = response.Data.street,
+            Phone = new string(usersDto.Phone.Where(char.IsDigit).ToArray()),
+            PostalCode = new string(usersDto.PostalCode.Where(char.IsDigit).ToArray()),
+            State = usersDto.State,
             Country = "Brazil",
-            City = response.Data.city
-        };
-        public static Users ToUsers(this UserDataDto usersDto, Response<CepResponse> response) => new Users
-        {
-            FullName = usersDto.FullName,
-            RegistrationNumber = usersDto.RegistrationNumber,
-            CompanyId = usersDto.CompanyId,
-            Email = usersDto.Email,
-            Phone = usersDto.Phone,
-            PostalCode = response.Data.cep,
-            State = response.Data.state,
-            Address = response.Data.street,
-            Country = "Brazil",
-            City = response.Data.city
+            Address = usersDto.Address,
+            City = usersDto.City
         };
         public static Users UsersAddress(this Response<CepResponse> response) => new Users
         {
@@ -49,10 +36,9 @@ namespace PetShop.Application.MappingsConfig
         };
 
         public static UserDataDto ToUserDto(this Users user) => new
-           (user.FullName, user.RegistrationNumber, user.CompanyId,
+           (user.UserId, user.FullName, user.RegistrationNumber, 
             user.Email, user.Phone, user.PostalCode,
-            user.State, user.City, user.Country,
-            user.Address
+            user.State, user.City, user.Country
            );
     }
 }

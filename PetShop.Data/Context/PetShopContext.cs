@@ -30,35 +30,17 @@ namespace PetShop.Data.Context
                 .HavePrecision(8, 2);
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PetShopContext).Assembly);
-
-            modelBuilder.Entity<Users>()
-                .HasOne(U => U.Companies)
-                .WithMany(U => U.Users)
-                .HasForeignKey(u => u.CompanyId);
-
-            modelBuilder.Entity<Pets>()
-                .HasOne(im => im.Companies)
-                .WithMany(u => u.Pets)
-                .HasForeignKey(im => im.CompanyId);
+              
 
             modelBuilder.Entity<Pets>()
                 .HasOne(im => im.User)
                 .WithMany(u => u.Pets)
                 .HasForeignKey(im => im.UserId);
-
-            modelBuilder.Entity<Services>()
-                .HasOne(U => U.Companies)
-                .WithMany(U => U.Services)
-                .HasForeignKey(u => u.CompanyId);
-
-            modelBuilder.Entity<Appointments>()
-                .HasOne(U => U.Companies)
-                .WithMany(u => u.Appointments)
-                .HasForeignKey(u => u.CompanyId);
 
             modelBuilder.Entity<Appointments>()
                 .HasOne(U => U.Users)
@@ -71,7 +53,7 @@ namespace PetShop.Data.Context
                 .HasForeignKey(u => u.PetId);
 
             modelBuilder.Entity<ServiceGroup>()
-                .HasKey(sg => new { sg.CompanyId, sg.ServiceId, sg.AppointmentId });
+                .HasKey(sg => new {sg.ServiceId, sg.AppointmentId });
 
             modelBuilder.Entity<ServiceGroup>()
                 .HasOne(sg => sg.Services)
@@ -82,12 +64,6 @@ namespace PetShop.Data.Context
                 .HasOne(sg => sg.Appointments)
                 .WithMany(s => s.ServiceGroups)
                 .HasForeignKey(sg => sg.AppointmentId);
-
-            modelBuilder.Entity<ServiceGroup>()
-                .HasOne(sg => sg.Companies)
-                .WithMany(s => s.ServiceGroups)
-                .HasForeignKey(sg => sg.CompanyId);
-
         }
     }
 }

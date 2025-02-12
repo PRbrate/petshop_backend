@@ -2,24 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PetShop.Application.DTO
 {
     public class CnpjResponseDto
     {
-        
+        public string RegistrationNumber { get; set; }
 
-        public string cnpj { get; set; }
-        public string razao_social { get; set; }
-        public string nome_fantasia { get; set; }
-        public string descricao_situacao_cadastral { get; set; }
-        public int cep { get; set; }
-        public string uf { get; set; }
-        public string logradouro { get; set; }
-        public string municipio { get; set; }
-        public string ddd_telefone_1 { get; set; }
-        public int capital_social { get; set; }
-        public string descricao_porte { get; set; }
+        public string CompanyName { get; set; }
+
+        public string TradeName { get; set; }
+
+        public string DescriptionRegistrationStatus { get; set; }
+
+        public int PostalCode { get; set; }
+
+        public string State { get; set; }
+
+        public string Country { get; set; }
+
+        public string City { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public int ShareCapital { get; set; }
+
+
+        public string DescriptionSize { get; set; }
+
     }
 }

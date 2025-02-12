@@ -20,16 +20,50 @@ namespace PetShop.Api.Controllers.V1
         [HttpGet("{cnpj}")]
         public async Task<IActionResult> GetCnpj(string cnpj)
         {
-            var company = await _brasilApiHttpService.GetCnpj(cnpj);
+            try
+            {
+                var company = await _brasilApiHttpService.GetCnpj(cnpj);
 
-            return Ok(company.Data);
+                return Ok(new
+                {
+                    RegistrationNumber = company.Data.cnpj,
+                    CompanyName = company.Data.razao_social,
+                    TradeName = company.Data.nome_fantasia,
+                    StatusCompany = company.Data.descricao_situacao_cadastral,
+                    PostalCode = company.Data.cep,
+                    State = company.Data.uf,
+                    Adress = company.Data.logradouro,
+                    City = company.Data.municipio,
+                    PhoneNumber = company.Data.ddd_telefone_1,
+
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("GetCep/{cep}")]
         public async Task<IActionResult> GetCep(string cep)
         {
-            var company = await _brasilApiHttpService.GetCep(cep);
+            try
+            {
+                var company = await _brasilApiHttpService.GetCep(cep);
 
-            return Ok(company.Data);
+                return Ok(new
+                {
+                    PostalCode = company.Data.cep,
+                    State = company.Data.state,
+                    City = company.Data.city,
+                    Country = company.Data.neighborhood,
+                    Street = company.Data.street,
+
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

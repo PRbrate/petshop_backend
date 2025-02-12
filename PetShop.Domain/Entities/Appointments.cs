@@ -11,9 +11,6 @@ namespace PetShop.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AppointmentId { get; set; }
 
-        public int CompanyId { get; set; }
-        public Companies Companies { get; set; }
-
         public int UserId { get; set; }
         public Users Users { get; set; }
 
