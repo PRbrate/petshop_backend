@@ -1,37 +1,64 @@
+Ignorar arquivos de configuração local
+appsettings.Development.json
+appsettings.Local.json
 
-bin/
-obj/
-out/
+Ignorar pastas de dependências e builds
+/bin/
+/obj/
+/packages/
+/.vs/
+/.vscode/
+/.idea/
+/.userprefs
+/.suo
+/.cache/
+/artifacts/
+
+Ignorar logs e arquivos de depuração
 *.log
-*.cache
-*.pdb
-.vs/
+*.sublime-workspace
+*.pidb
+*.userprefs
+*.DS_Store
+*.ncrunchsolution
+.ncrunchproject
 
+Ignorar arquivos de projeto temporários
+_ReSharper.
+*.resharper
+[Tt]emp/
+[Tt]mp/
 
+Ignorar arquivos de publicação
+/publish/
+/out/
+
+Ignorar arquivos de teste
+/TestResults/
+
+Ignorar arquivos de banco de dados local
+*.mdf
+*.ldf
+
+Ignorar arquivos de ambiente
+.env
+.env.local
+
+Ignorar arquivos do Rider
+.idea/
+*.sln.iml
+
+Ignorar arquivos do Visual Studio Code
 .vscode/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
 
+Ignorar arquivos do Azure Functions
+local.settings.json
 
-packages/
+Ignorar arquivos do npm (se houver front-end)
 node_modules/
-wwwroot/lib/
-dist/
-npm-debug.log*
-yarn-error.log
+npm-debug.log
 
-
-*.config
-*.env
-*.settings
-
-
-.publish/
-wwwroot/
-app.publish/
-
-
-/.github/workflows/*.log
-/.github/workflows/*.cache
+Ignorar arquivos do NuGet
+.nuget/
+*.nupkg
+nuget.exe
