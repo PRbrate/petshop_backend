@@ -19,6 +19,7 @@ namespace PetShop.Api.ApiConfig
             services.AddScoped<IBrasilApiHttpService, BrasilApiHttpService>();
             services.AddScoped<ICompaniesService, CompanyService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IPetsService, PetsService>();
             services.AddSingleton<EmailService>();
             services.AddMemoryCache();
             services.AddSingleton<MemoryCacheService>();

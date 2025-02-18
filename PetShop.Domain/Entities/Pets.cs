@@ -16,13 +16,24 @@ namespace PetShop.Domain.Entities
         public string FullName { get; set; }
         public Species Species { get; set; }
         public string Breed { get; set; }
-        public int Age { get; set; }
+        public int Age { get; set; } 
         public DateTime Birthdate { get; set; }
         public Gender Gender { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
 
         public ICollection<Appointments> Appointments { get; set; }
+
+        public void setAge()
+        {
+            DateTime today = DateTime.Today;
+            int age = today.Year - Birthdate.Year;
+            if (Birthdate.Date > today.AddYears(-age))
+            {
+                age--;
+            }
+            Age = age;
+        }
 
     }
 }

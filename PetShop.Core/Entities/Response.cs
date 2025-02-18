@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 namespace PetShop.Core.Entities
 {
     public class Response<T>
-    {        
-        public bool Success { get; set; }
+    {
+        public bool Success { get; set; } = true;
         public T Data { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public ExpandoObject? Errors { get; set; }
+        public string Errors { get; set; }
+        public ExpandoObject? ExternalErrors{ get; set; }
     }
 }
