@@ -1,64 +1,85 @@
-Ignorar arquivos de configuração local
+# Ignorar arquivos de configuração local
+# appsettings.Development.json
+# appsettings.Local.json
+
+# Ignorar pastas de dependências e builds
+# /bin/
+# /obj/
+# /packages/
+# /.vs/
+# /.vscode/
+# /.idea/
+# /.userprefs
+# /.suo
+# /.cache/
+# /artifacts/
+
+# Ignorar logs e arquivos de depuração
+# *.log
+# *.sublime-workspace
+# *.pidb
+# *.userprefs
+# *.DS_Store
+# *.ncrunchsolution
+# .ncrunchproject
+
+# Ignorar arquivos de projeto temporários
+# _ReSharper.
+# *.resharper
+# [Tt]emp/
+# [Tt]mp/
+
+# Ignorar arquivos de publicação
+# /publish/
+# /out/
+
+# Ignorar arquivos de teste
+# /TestResults/
+
+# Ignorar arquivos de banco de dados local
+# *.mdf
+# *.ldf
+
+# Ignorar arquivos de ambiente
+# .env
+# .env.local
+
+# Ignorar arquivos do Rider
+# .idea/
+# *.sln.iml
+
+# Ignorar arquivos do Visual Studio Code
+# .vscode/
+
+# Ignorar arquivos do Azure Functions
+# local.settings.json
+
+# Ignorar arquivos do npm (se houver front-end)
+# node_modules/
+# npm-debug.log
+
+# Ignorar arquivos do NuGet
+# .nuget/
+# *.nupkg
+# nuget.exe
+
+
+bin/
+obj/
 appsettings.Development.json
 appsettings.Local.json
-
-Ignorar pastas de dependências e builds
-/bin/
-/obj/
-/packages/
-/.vs/
-/.vscode/
-/.idea/
-/.userprefs
-/.suo
-/.cache/
-/artifacts/
-
-Ignorar logs e arquivos de depuração
+.vscode/
+.idea/
+*.suo
+*.user
+*.csproj.user
+*.vs/
+packages/
+node_modules/
+wwwroot/lib/
 *.log
-*.sublime-workspace
-*.pidb
-*.userprefs
-*.DS_Store
-*.ncrunchsolution
-.ncrunchproject
-
-Ignorar arquivos de projeto temporários
-_ReSharper.
-*.resharper
-[Tt]emp/
-[Tt]mp/
-
-Ignorar arquivos de publicação
-/publish/
-/out/
-
-Ignorar arquivos de teste
-/TestResults/
-
-Ignorar arquivos de banco de dados local
+logs/
 *.mdf
 *.ldf
-
-Ignorar arquivos de ambiente
-.env
-.env.local
-
-Ignorar arquivos do Rider
-.idea/
-*.sln.iml
-
-Ignorar arquivos do Visual Studio Code
-.vscode/
-
-Ignorar arquivos do Azure Functions
-local.settings.json
-
-Ignorar arquivos do npm (se houver front-end)
-node_modules/
-npm-debug.log
-
-Ignorar arquivos do NuGet
-.nuget/
-*.nupkg
-nuget.exe
+*.sqlite
+*.db

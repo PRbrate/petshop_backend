@@ -8,6 +8,6 @@ using PetShop.Domain.Entities.Enums;
 
 namespace PetShop.Application.DTO
 {
-    public record PetsDto(int petsId, int userId, string fullName, Species species, string breed, int age, DateTime birthDate, Gender gender);
+    public record PetsDto(int petsId, int userId, string fullName, Species species, string breed, int age, DateOnly birthDate, Gender gender);
 
 }
