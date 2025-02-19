@@ -32,7 +32,7 @@ namespace PetShop.Facade.Services
                 else
                 {
                     response.Success = false;
-                    response.Errors = JsonConvert.DeserializeObject<ExpandoObject>(contentResponse);
+                    response.ExternalErrors = JsonConvert.DeserializeObject<ExpandoObject>(contentResponse);
                 }
                 return response;
             }
@@ -60,7 +60,7 @@ namespace PetShop.Facade.Services
                 else
                 {
                     response.Success = false;
-                    response.Errors = JsonConvert.DeserializeObject<ExpandoObject>(contentResponse);
+                    response.ExternalErrors = JsonConvert.DeserializeObject<ExpandoObject>(contentResponse);
                 }
                 return response;
             }

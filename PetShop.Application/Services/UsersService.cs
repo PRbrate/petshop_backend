@@ -24,9 +24,9 @@ namespace PetShop.Application.Services
             _memoryCacheService = memoryCache;
         }
 
-        public async Task<InternalResponse<string>> Authenticate(string RegistrationNumber, string password)
+        public async Task<Response<string>> Authenticate(string RegistrationNumber, string password)
         {
-            var response = new InternalResponse<string>();
+            var response = new Response<string>();
             RegistrationNumber = new string(RegistrationNumber.Where(char.IsDigit).ToArray());
             if (!CpfValidatorService.ValidateCPF((RegistrationNumber)))
             {
@@ -66,10 +66,10 @@ namespace PetShop.Application.Services
             return response;
 
         }
-        public async Task<InternalResponse<Users>> CreateUser(UserDto usersDto, string code)
+        public async Task<Response<Users>> CreateUser(UserDto usersDto, string code)
         {
 
-            var response = new InternalResponse<Users>();
+            var response = new Response<Users>();
             if (!PasswordValidatorSerivce.VerifyPassword(usersDto.Password))
             {
                 response.Success = false;
@@ -140,10 +140,10 @@ namespace PetShop.Application.Services
         }
 
         #region gets
-        public async Task<InternalResponse<List<UserDataDto>>> GetAll()
+        public async Task<Response<List<UserDataDto>>> GetAll()
         {
             var list = new List<UserDataDto>();
-            var response = new InternalResponse<List<UserDataDto>>();
+            var response = new Response<List<UserDataDto>>();
             var user = await _usersRepository.GetAllAsync();
             if (user == null)
             {
@@ -160,9 +160,9 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public async Task<InternalResponse<UserDataDto>> GetByRegistrationNumber(string registrationNumber)
+        public async Task<Response<UserDataDto>> GetByRegistrationNumber(string registrationNumber)
         {
-            var response = new InternalResponse<UserDataDto>();
+            var response = new Response<UserDataDto>();
             registrationNumber = new string(registrationNumber.Where(char.IsDigit).ToArray());
             var user = await _usersRepository.GetUserByRegistrationNumber(registrationNumber);
             if (user == null)
@@ -175,9 +175,9 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public async Task<InternalResponse<UserDataDto>> GetByEmail(string email)
+        public async Task<Response<UserDataDto>> GetByEmail(string email)
         {
-            var response = new InternalResponse<UserDataDto>();
+            var response = new Response<UserDataDto>();
             var user = await _usersRepository.GetByEmailAsync(email);
             if (user == null)
             {
@@ -188,10 +188,10 @@ namespace PetShop.Application.Services
             response.Data = AutoMapperUsers.ToUserDto(user);
             return response;
         }
-        public async Task<InternalResponse<List<UserDataDto>>> GetByPhoneNumber(string phoneNumber)
+        public async Task<Response<List<UserDataDto>>> GetByPhoneNumber(string phoneNumber)
         {
             var list = new List<UserDataDto>();
-            var response = new InternalResponse<List<UserDataDto>>();
+            var response = new Response<List<UserDataDto>>();
             var user = await _usersRepository.GetByPhoneNumber(phoneNumber);
             if (user == null)
             {
@@ -207,9 +207,9 @@ namespace PetShop.Application.Services
             response.Data = list;
             return response;
         }
-        public async Task<InternalResponse<UserDataDto>> GetById(int id)
+        public async Task<Response<UserDataDto>> GetById(int id)
         {
-            var response = new InternalResponse<UserDataDto>();
+            var response = new Response<UserDataDto>();
             var user = await _usersRepository.GetAsync(id);
             if (user == null)
             {
@@ -223,10 +223,10 @@ namespace PetShop.Application.Services
         #endregion
 
         #region update
-        public async Task<InternalResponse<UserDataDto>> UpdateUser(int id, UserDto userDto, string code)
+        public async Task<Response<UserDataDto>> UpdateUser(int id, UserDto userDto, string code)
         {
             var userByIdData = await _usersRepository.GetAsync(id);
-            var response = new InternalResponse<UserDataDto>();
+            var response = new Response<UserDataDto>();
 
             if (userByIdData == null)
             {

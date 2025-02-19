@@ -32,9 +32,9 @@ namespace PetShop.Application.Services
             return true;
         }
 
-        public async Task<InternalResponse<List<CompaniesDto>>> GetAllCompanies()
+        public async Task<Response<List<CompaniesDto>>> GetAllCompanies()
         {
-            var response = new InternalResponse<List<CompaniesDto>>();
+            var response = new Response<List<CompaniesDto>>();
 
             var companies = await _companiesRepository.GetAllAsync();
             var allcompanies = new List<CompaniesDto>();
@@ -48,9 +48,9 @@ namespace PetShop.Application.Services
             return response;
 
         }
-        public async Task<InternalResponse<CompaniesDto>> GetCompaniesByRegisterNumber(string registrationNumber)
+        public async Task<Response<CompaniesDto>> GetCompaniesByRegisterNumber(string registrationNumber)
         {
-            var response = new InternalResponse<CompaniesDto>();
+            var response = new Response<CompaniesDto>();
             registrationNumber = new string(registrationNumber.Where(char.IsDigit).ToArray());
             if (!CnpjValidatorService.ValidarCnpj(registrationNumber))
             {
@@ -73,10 +73,10 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public async Task<InternalResponse<CompaniesDto>> GetCompany(int id)
+        public async Task<Response<CompaniesDto>> GetCompany(int id)
         {
 
-            var response = new InternalResponse<CompaniesDto>();
+            var response = new Response<CompaniesDto>();
 
             var getCompany = await _companiesRepository.GetAsync(id);
 
@@ -92,10 +92,10 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public async Task<InternalResponse<CompaniesDto>> CreateCompany(CompaniesDto companiesDto)
+        public async Task<Response<CompaniesDto>> CreateCompany(CompaniesDto companiesDto)
         {
 
-            var response = new InternalResponse<CompaniesDto>();
+            var response = new Response<CompaniesDto>();
 
             if (!CnpjValidatorService.ValidarCnpj(companiesDto.RegistrationNumber))
             {
@@ -149,10 +149,10 @@ namespace PetShop.Application.Services
 
         }
 
-        public async Task<InternalResponse<CompaniesDto>> UpdateCompany(int id, CompaniesUpdateDto companiesDto)
+        public async Task<Response<CompaniesDto>> UpdateCompany(int id, CompaniesUpdateDto companiesDto)
         {
             var companyByIdData = await _companiesRepository.GetAsync(id);
-            var response = new InternalResponse<CompaniesDto>();
+            var response = new Response<CompaniesDto>();
 
             if (companyByIdData == null)
             {

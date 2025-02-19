@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj": {}
+    "C:\\Users\\Raphael\\Source\\Repos\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj": {
+    "C:\\Users\\Raphael\\Source\\Repos\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Raphael\\Source\\Repos\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj",
         "projectName": "PetShop.Core",
-        "projectPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj",
-        "packagesPath": "C:\\Users\\paulo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paulo\\source\\repos\\PRbrate\\petshop_backend\\PetShop.Core\\obj\\",
+        "projectPath": "C:\\Users\\Raphael\\Source\\Repos\\petshop_backend\\PetShop.Core\\PetShop.Core.csproj",
+        "packagesPath": "C:\\Users\\Raphael\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Raphael\\Source\\Repos\\petshop_backend\\PetShop.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\paulo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Raphael\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

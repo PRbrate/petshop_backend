@@ -12,15 +12,15 @@ namespace PetShop.Application.Services.Interfaces
 {
     public interface IUsersService
     {
-        Task<InternalResponse<Users>> CreateUser(UserDto users, string code);
-        Task<InternalResponse<string>> Authenticate(string RegistrationNumber, string password);
-        Task<InternalResponse<UserDataDto>> GetById(int id);
-        Task<InternalResponse<List<UserDataDto>>> GetAll();
-        Task<InternalResponse<List<UserDataDto>>> GetByPhoneNumber(string phoneNumber);
-        Task<InternalResponse<UserDataDto>> GetByRegistrationNumber(string registrationNumber);
-        Task<InternalResponse<UserDataDto>> GetByEmail(string email);
+        Task<Response<Users>> CreateUser(UserDto users, string code);
+        Task<Response<string>> Authenticate(string RegistrationNumber, string password);
+        Task<Response<UserDataDto>> GetById(int id);
+        Task<Response<List<UserDataDto>>> GetAll();
+        Task<Response<List<UserDataDto>>> GetByPhoneNumber(string phoneNumber);
+        Task<Response<UserDataDto>> GetByRegistrationNumber(string registrationNumber);
+        Task<Response<UserDataDto>> GetByEmail(string email);
         Task<bool> DeleteUser(int id);
-        Task<InternalResponse<UserDataDto>> UpdateUser(int id, UserDto userDto, string code);
+        Task<Response<UserDataDto>> UpdateUser(int id, UserDto userDto, string code);
         
 
     }

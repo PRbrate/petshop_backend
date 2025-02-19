@@ -11,11 +11,11 @@ namespace PetShop.Application.Services.Interfaces
 {
     public interface ICompaniesService
     {
-        Task<InternalResponse<CompaniesDto>> CreateCompany(CompaniesDto companiesDto);
-        Task<InternalResponse<CompaniesDto>> UpdateCompany(int id, CompaniesUpdateDto companiesDto);
+        Task<Response<CompaniesDto>> CreateCompany(CompaniesDto companiesDto);
+        Task<Response<CompaniesDto>> UpdateCompany(int id, CompaniesUpdateDto companiesDto);
         Task<bool> DeleteCompany(int id);
-        Task<InternalResponse<CompaniesDto>> GetCompany(int id);
-        Task<InternalResponse<List<CompaniesDto>>> GetAllCompanies();
-        Task<InternalResponse<CompaniesDto>> GetCompaniesByRegisterNumber(string cnpj);
+        Task<Response<CompaniesDto>> GetCompany(int id);
+        Task<Response<List<CompaniesDto>>> GetAllCompanies();
+        Task<Response<CompaniesDto>> GetCompaniesByRegisterNumber(string cnpj);
     }
 }
