@@ -2,8 +2,11 @@
 using PetShop.Application.Services;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Application.Services.OtherServices;
+using PetShop.Core;
+using PetShop.Core.Audit;
 using PetShop.Core.Base;
 using PetShop.Core.Base.Interfaces;
+using PetShop.Core.Extensions.Security;
 using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Facade.Interfaces;
@@ -16,6 +19,11 @@ namespace PetShop.Api.ApiConfig
         public static void RegisterServices(this IServiceCollection services)
         {
             #region Services
+            services.AddScoped<IAuditHelper, AuditHelper>();
+            services.AddScoped<IUser, AspNetUser>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAuditService, AuditService>();
+
             services.AddScoped<IBrasilApiHttpService, BrasilApiHttpService>();
             services.AddScoped<ICompaniesService, CompanyService>();
             services.AddScoped<IUsersService, UsersService>();
@@ -26,6 +34,9 @@ namespace PetShop.Api.ApiConfig
             #endregion
 
             #region Repositories
+
+            services.AddScoped<IAuditRepository, AuditRepository>();
+
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped<IAppointmentsRepository, AppointmentsRepository>();
             services.AddScoped<ICompaniesRepository, CompaniesRepository>();

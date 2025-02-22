@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Core.Audit;
 using PetShop.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace PetShop.Data.Context
         public DbSet <Appointments> Appointments { get; set; }
         public DbSet <Services> Services { get; set; }
         public DbSet <ServiceGroup> ServiceGroup { get; set; }
+
+        public DbSet <AuditModel> Audit { get; set; }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {

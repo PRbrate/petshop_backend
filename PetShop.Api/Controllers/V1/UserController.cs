@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PetShop.Application.DTO;
 using PetShop.Application.Services.Interfaces;
+using PetShop.Core.Audit;
 using PetShop.Core.Entities;
 using PetShop.Domain.Entities;
 
@@ -14,10 +16,14 @@ namespace PetShop.Api.Controllers.V1
     public class UserController : ControllerBase
     {
         private readonly IUsersService _usersService;
+        private readonly IAuditHelper _audit;
+        private readonly IAuditService _auditService;
 
-        public UserController(IUsersService usersService)
+        public UserController(IUsersService usersService, IAuditHelper audit, IAuditService auditService)
         {
             _usersService = usersService;
+            _audit = audit;
+            _auditService = auditService;
         }
 
         [HttpPost("Authenticate")]
@@ -33,6 +39,7 @@ namespace PetShop.Api.Controllers.V1
                     return UnprocessableEntity(response.Errors);
                 }
 
+                await RegisterLog("PetShop", $"effected Login - {RegitrationNumber}", response);
                 return Ok(new { jwt_token = response.Data });
             }
             catch (Exception ex)
@@ -212,6 +219,29 @@ namespace PetShop.Api.Controllers.V1
                 return BadRequest(ex.Message);
             }
 
+        }
+
+        protected AuditModel LogAudit(string module, string description, string model)
+        {
+            return _audit.RegisterLog(HttpContext, module, description, model);
+        }
+
+        private async Task RegisterLog(string module, string description, object objectModel = null)
+        {
+            try
+            {
+                var modelJson = string.Empty;
+
+                //convert object in json
+                if (objectModel != null) modelJson = JsonConvert.SerializeObject(objectModel);
+
+                var log = LogAudit(module, description, modelJson);
+                await _auditService.RegisterLog(log);
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }
