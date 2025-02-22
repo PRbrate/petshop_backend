@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PetShop.Core.Audit.UserAgentHelper
 {
-    class ClientOS
+    public class ClientOS
     {
         private static Dictionary<string, string> _versionMap = new Dictionary<string, string>{
             {"4.90","ME" },

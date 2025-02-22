@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PetShop.Application.DTO;
 using PetShop.Application.Services.Interfaces;
+using PetShop.Core;
 using PetShop.Core.Audit;
 using PetShop.Core.Entities;
 using PetShop.Domain.Entities;
@@ -36,10 +37,11 @@ namespace PetShop.Api.Controllers.V1
 
                 if (!response.Success)
                 {
+                    await RegisterLog("PetShop", $"Login Fail - {RegitrationNumber}", new { response.Success });
                     return UnprocessableEntity(response.Errors);
                 }
 
-                await RegisterLog("PetShop", $"effected Login - {RegitrationNumber}", response);
+                await RegisterLog("PetShop", $"effected Login - {RegitrationNumber}", new {response.Success});
                 return Ok(new { jwt_token = response.Data });
             }
             catch (Exception ex)
@@ -57,9 +59,11 @@ namespace PetShop.Api.Controllers.V1
 
                 if (!response.Success)
                 {
+                    await RegisterLog("PetShop", $"Register User Fail - {users}", new { response.Success, response.Errors});
                     return UnprocessableEntity(response.Errors);
                 }
 
+                await RegisterLog("PetShop", $"Register Sucess - {users}", new {response.Success });
                 return Ok();
             }
             catch (Exception ex)
@@ -78,9 +82,11 @@ namespace PetShop.Api.Controllers.V1
 
                 if (!response.Success)
                 {
+
                     return UnprocessableEntity(response.Errors);
                 }
 
+                await RegisterLog("PetShop", $"Get done - ", new { response.Success});
                 return Ok(response.Data);
             }
             catch (Exception ex)
@@ -207,12 +213,15 @@ namespace PetShop.Api.Controllers.V1
 
             try
             {
-                var companies = await _usersService.UpdateUser(userId, userDto, code);
-                if (!companies.Success)
+                var response = await _usersService.UpdateUser(userId, userDto, code);
+                if (!response.Success)
                 {
-                    return UnprocessableEntity(companies.Errors);
+                    await RegisterLog("PetShop", $"Update User Fail - {userDto}", new { response.Success, response.Errors });
+                    return UnprocessableEntity(response.Errors);
                 }
-                return Ok(companies.Success);
+
+                await RegisterLog("PetShop", $"Updete User Sucess - {userDto}", new { response.Success});
+                return Ok(response.Success);
             }
             catch (Exception ex)
             {

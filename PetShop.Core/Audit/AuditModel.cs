@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -9,22 +11,25 @@ namespace PetShop.Core.Audit
 {
     public class AuditModel
     {
-        public AuditModel(string userId, long contaId, string userName, string system, string ip, string operationalSystem, string browser, bool mobile, string action, string description, string model = null)
+        public AuditModel(int id, DateTime occurrenceDate, string system, string userId, string userName, string ip, string operationalSystem, string browser, bool mobile, string action, string description, string model)
         {
+            Id = id;
+            OccurrenceDate = DateTime.UtcNow;
+            System = system;
             UserId = userId;
             UserName = userName;
-            System = system;
             Ip = ip;
             OperationalSystem = operationalSystem;
             Browser = browser;
             Mobile = mobile;
+            Action = action;
             Description = description;
             Model = model;
-            OccurrenceDate = DateTime.Now;
-            Id = Guid.NewGuid();
         }
 
-        public Guid Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public DateTime OccurrenceDate { get; private set; }
         public string System { get; private set; }
         public string UserId { get; private set; }

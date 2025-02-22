@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace PetShop.Core.Audit
 {
     class AuditDto
     {
-        public AuditDto()
-        {
-            Id = Guid.NewGuid();
-        }
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime OccurrenceDate { get; set; }
         public string System { get; set; }
-        public long ContaId { get; set; }
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string Ip { get; set; }
@@ -59,8 +49,9 @@ namespace PetShop.Core.Audit
             if (viewModel == null) return null;
 
             return new AuditModel(
+                id: viewModel.Id,
+                occurrenceDate: viewModel.OccurrenceDate,
                 userId: viewModel.UserId,
-                contaId: viewModel.ContaId,
                 userName: viewModel.UserName,
                 system: viewModel.System,
                 ip: viewModel.Ip,

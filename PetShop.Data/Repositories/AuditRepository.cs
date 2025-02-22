@@ -29,6 +29,8 @@ namespace PetShop.Data.Repositories
 
         public async Task<bool> RegistrarLog(AuditModel audit)
         {
+            DateTime.SpecifyKind(audit.OccurrenceDate, DateTimeKind.Utc);
+
             await _context.Audit.AddAsync(audit);
             return await _context.SaveChangesAsync() > 0;
         }

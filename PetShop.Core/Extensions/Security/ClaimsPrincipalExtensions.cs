@@ -16,7 +16,7 @@ namespace PetShop.Core.Extensions.Security
                 throw new ArgumentException(nameof(principal));
             }
 
-            var userId = principal.Claims.FirstOrDefault(c => c.Type == "UserId").Value;
+            var userId = principal.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
 
             return userId;
         }
