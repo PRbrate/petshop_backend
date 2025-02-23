@@ -18,6 +18,7 @@ namespace PetShop.Data.Context
         public DbSet <Appointments> Appointments { get; set; }
         public DbSet <Services> Services { get; set; }
         public DbSet <ServiceGroup> ServiceGroup { get; set; }
+        public DbSet <Pets> Pets { get; set; }
 
         public DbSet <AuditModel> Audit { get; set; }
 

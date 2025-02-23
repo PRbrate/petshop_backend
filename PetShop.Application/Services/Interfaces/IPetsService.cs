@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PetShop.Application.DTO;
 using PetShop.Core.Entities;
 using PetShop.Domain.Entities;
+using PetShop.Domain.Entities.Enums;
 
 namespace PetShop.Application.Services.Interfaces
 {
@@ -17,5 +18,8 @@ namespace PetShop.Application.Services.Interfaces
         Task<Response<List<PetsDto>>> GetPets();
         Task<Response<PetsDto>> GetPetById(int id);
         Task<Response<List<PetsDto>>> GetPetByUser(int id);
+        Task<Response<List<PetsDto>>> GetPetsBySpecie(Species specie);
+
+        Task<Response<List<PetsDto>>> GetPetsByGender(Gender gender);
     }
 }

@@ -69,22 +69,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
-    "Method": "CreatePet",
-    "RelativePath": "api/Pets/CreatePet",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pet",
-        "Type": "PetShop.Application.DTO.PetsDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "PetShop.Api.Controllers.V1.CompanyController",
     "Method": "GetCompanies",
     "RelativePath": "api/v1/companies",
@@ -159,6 +143,96 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
+    "Method": "CreatePet",
+    "RelativePath": "api/v1/pets/CreatePet",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pet",
+        "Type": "PetShop.Application.DTO.PetsDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
+    "Method": "GetALlPets",
+    "RelativePath": "api/v1/pets/GetAllPets",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
+    "Method": "GetPetsById",
+    "RelativePath": "api/v1/pets/GetPetsById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
+    "Method": "GetALlPetsByUser",
+    "RelativePath": "api/v1/pets/GetPetsByUser/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
+    "Method": "GetPetsByGender",
+    "RelativePath": "api/v1/pets/GetPetsGender",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gender",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
+    "Method": "GetPetsBySpecie",
+    "RelativePath": "api/v1/pets/GetPetsSpecie",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "species",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

@@ -52,6 +52,7 @@ namespace PetShop.Api.Controllers.V1
                 return BadRequest(new { msg = ex.Message });
             }
         }
+        
         [HttpPost("CreateUser")]
         [AllowAnonymous]
         public async Task<IActionResult> CreateUser(UserDto users, string code)
@@ -97,6 +98,7 @@ namespace PetShop.Api.Controllers.V1
                 return BadRequest(ex);
             }
         }
+        
         [HttpGet("GetById/{userId}")]
         [Authorize(Roles = "Employer, Admin")]
         public async Task<IActionResult> GetById(int userId)
@@ -232,12 +234,13 @@ namespace PetShop.Api.Controllers.V1
             }
 
         }
-
+        
+        
+        
         protected AuditModel LogAudit(string module, string description, string model)
         {
             return _audit.RegisterLog(HttpContext, module, description, model);
         }
-
         private async Task RegisterLog(string module, string description, object objectModel = null)
         {
             try
