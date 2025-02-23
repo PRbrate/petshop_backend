@@ -26,6 +26,7 @@ namespace PetShop.Application.Services.OtherServices
                 {
                     new Claim("user_id", user.UserId.ToString()),
                     new Claim(ClaimTypes.Email, user.Email.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
                     new Claim(ClaimTypes.Role, usertype),
                     new Claim("RegistrationNumber", user.RegistrationNumber.ToString())
                 }),
@@ -68,6 +69,17 @@ namespace PetShop.Application.Services.OtherServices
             var jwtToken = handler.ReadJwtToken(token);
 
             var idClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value;
+
+            return idClaim;
+
+        }
+
+        public static string GetUserFromToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+
+            var idClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameIdentifier")?.Value;
 
             return idClaim;
 

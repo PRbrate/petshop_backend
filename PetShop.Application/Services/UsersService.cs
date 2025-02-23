@@ -27,11 +27,36 @@ namespace PetShop.Application.Services
         public async Task<Response<string>> Authenticate(string RegistrationNumber, string password)
         {
             var response = new Response<string>();
-            RegistrationNumber = new string(RegistrationNumber.Where(char.IsDigit).ToArray());
-            if (!CpfValidatorService.ValidateCPF((RegistrationNumber)))
+            Users userTester;
+            int i;
+            if (EmailValidatorService.VerifyEmail(RegistrationNumber))
+            {
+                userTester = await _usersRepository.GetByEmailAsync(RegistrationNumber);
+                i = 1;
+            }
+            else if (UserNameValidatorService.ValidaUserName(RegistrationNumber))
+            {
+                userTester = await _usersRepository.GetUserByUserName(RegistrationNumber);
+                i = 2;
+            }
+            else
+            {
+                RegistrationNumber = new string(RegistrationNumber.Where(char.IsDigit).ToArray());
+                if (!CpfValidatorService.ValidateCPF((RegistrationNumber)))
+                {
+                    response.Success = false;
+                    response.Errors = "Login with Email, Username and CPF is incorrect";
+                    return response;
+                }
+                userTester = await _usersRepository.GetUserByRegistrationNumber(RegistrationNumber);
+                i = 3;
+
+            }
+
+            if(userTester == null)
             {
                 response.Success = false;
-                response.Errors = "Invalid CPF";
+                response.Errors = "User Not found";
                 return response;
             }
 
@@ -42,8 +67,6 @@ namespace PetShop.Application.Services
                 return response;
             }
 
-            var userTester = await _usersRepository.GetUserByRegistrationNumber(RegistrationNumber);
-
             if (!PasswordCryptographyService.VerifyPassword(password, userTester.Password))
             {
                 response.Success = false;
@@ -51,18 +74,17 @@ namespace PetShop.Application.Services
                 return response;
             }
 
-
-            var userAuthenticate = await _usersRepository.AuthenticateUser(RegistrationNumber, userTester.Password);
+            var userAuthenticate = await _usersRepository.AuthenticateUser(RegistrationNumber, userTester.Password, i);
             if (userAuthenticate == null)
             {
                 response.Success = false;
-                response.Errors = "User Not found";
+                response.Errors = "unauthenticated user";
                 return response;
             }
 
             var token = TokenService.GenerateToken(userAuthenticate);
 
-            response.Data = token;
+            response.Data = token + "|" + userAuthenticate.UserName;
             return response;
 
         }
@@ -94,10 +116,28 @@ namespace PetShop.Application.Services
                 response.Errors = "Invalid phone number";
                 return response;
             }
+            if (!UserNameValidatorService.ValidaUserName((usersDto.UserName)))
+            {
+                response.Success = false;
+                response.Errors = "UserName shouldn't contain spaces, characters(@, #, $, %, &, *, !) minlength = 5, maxlength = 30";
+                return response;
+            }
             if (await _usersRepository.GetUserByRegistrationNumber(usersDto.RegistrationNumber) != null)
             {
                 response.Success = false;
                 response.Errors = "There is already a user with that registration number";
+                return response;
+            }
+            if (await _usersRepository.GetUserByUserName(usersDto.UserName) != null)
+            {
+                response.Success = false;
+                response.Errors = "There is already a user with that UserName";
+                return response;
+            }
+            if (await _usersRepository.GetByEmailAsync(usersDto.Email) != null)
+            {
+                response.Success = false;
+                response.Errors = "There is already a user with that Email";
                 return response;
             }
 

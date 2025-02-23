@@ -35,11 +35,11 @@ namespace PetShop.Core.Audit
 
                 var username = _user.IsAuthenticated()
                     ? _user.GetUserEmail()
-                    : "Anonimo";
+                    : "anonymous";
 
                 var userId = _user.IsAuthenticated()
                     ? _user.GetUserId().ToString()
-                    : "Anonimo";
+                    : "anonymous";
 
                 if(description is null)
                 {

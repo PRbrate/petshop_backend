@@ -28,7 +28,7 @@ namespace PetShop.Application.Services.OtherServices
             message.From.Add(new MailboxAddress("Authomatize", senderEmail));
             message.To.Add(new MailboxAddress("", forMail));
             message.Subject = "Código Teste de verificação";
-            message.Body = new TextPart("html") { Text = $"O código de teste é: <b>{code}<b>" };
+            message.Body = new TextPart("html") { Text = $"O código de verificação é: <b>{code}<b>" };
 
             using (var client = new SmtpClient())
             {

@@ -20,10 +20,24 @@ namespace PetShop.Data.Repositories
             _Context = context;
         }
 
-        public async Task<Users> AuthenticateUser(string registrationNumber, string password)
+        public async Task<Users> AuthenticateUser(string registrationNumber, string password, int i)
         {
-            var userAuth = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber && x.Password == password);
-
+            Users userAuth;
+            switch(i)
+            {
+                case 1:
+                    userAuth = await _Context.Users.FirstOrDefaultAsync(x => x.Email == registrationNumber && x.Password == password);
+                    break;
+                case 2:
+                    userAuth = await _Context.Users.FirstOrDefaultAsync(x => x.UserName == registrationNumber && x.Password == password);
+                    break;
+                case 3:
+                    userAuth = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber && x.Password == password);
+                    break;
+                default:
+                    userAuth = new Users();
+                    break;
+            }
             return userAuth;
         }
 
@@ -38,6 +52,13 @@ namespace PetShop.Data.Repositories
             var usersRegistratioNumber = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber);
 
             return usersRegistratioNumber;
+        }
+
+        public async Task<Users> GetUserByUserName(string userName)
+        {
+            var uUsersName = await _Context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+
+            return uUsersName;
         }
 
         public async Task<List<Users>> GetByPhoneNumber(string phoneNumber)

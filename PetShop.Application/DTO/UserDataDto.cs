@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PetShop.Application.DTO
 {
-    public record UserDataDto(int id, string FullName, string RegistrationNumber, string Email
+    public record UserDataDto(int id, string FullName, string UserName, string RegistrationNumber, string Email
         , string Phone, string PostalCode, string State, string City, string Country);
 
 }

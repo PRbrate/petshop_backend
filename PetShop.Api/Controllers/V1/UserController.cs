@@ -35,14 +35,17 @@ namespace PetShop.Api.Controllers.V1
             {
                 var response = await _usersService.Authenticate(RegitrationNumber, password);
 
+
+                string[] res = response.Data.Split('|');
+
                 if (!response.Success)
                 {
-                    await RegisterLog("PetShop", $"Login Fail - {RegitrationNumber}", new { response.Success });
+                    await RegisterLog("PetShop", $"Login Fail - {res[1]}", new { response.Success });
                     return UnprocessableEntity(response.Errors);
                 }
 
-                await RegisterLog("PetShop", $"effected Login - {RegitrationNumber}", new {response.Success});
-                return Ok(new { jwt_token = response.Data });
+                await RegisterLog("PetShop", $"effected Login - {res[1]}", new {response.Success});
+                return Ok(new { jwt_token = res[0] });
             }
             catch (Exception ex)
             {
@@ -86,7 +89,7 @@ namespace PetShop.Api.Controllers.V1
                     return UnprocessableEntity(response.Errors);
                 }
 
-                await RegisterLog("PetShop", $"Get done - ", new { response.Success});
+                await RegisterLog("PetShop", $"Get done -  ", new { response.Success});
                 return Ok(response.Data);
             }
             catch (Exception ex)

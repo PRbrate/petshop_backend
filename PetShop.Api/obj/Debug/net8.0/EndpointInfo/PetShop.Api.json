@@ -686,6 +686,10 @@
             "type": "string",
             "nullable": true
           },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
           "companyId": {
             "type": "integer",
             "format": "int32"

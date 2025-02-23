@@ -16,7 +16,8 @@ namespace PetShop.Application.MappingsConfig
         {
 
             FullName = usersDto.FullName,
-            RegistrationNumber = new string(usersDto.RegistrationNumber.Where(char.IsDigit).ToArray()),            
+            RegistrationNumber = new string(usersDto.RegistrationNumber.Where(char.IsDigit).ToArray()),
+            UserName = usersDto.UserName,
             Email = usersDto.Email,
             Password = usersDto.Password,
             Phone = new string(usersDto.Phone.Where(char.IsDigit).ToArray()),
@@ -26,17 +27,8 @@ namespace PetShop.Application.MappingsConfig
             Address = usersDto.Address,
             City = usersDto.City
         };
-        public static Users UsersAddress(this Response<CepResponse> response) => new Users
-        {
-            PostalCode = response.Data.cep,
-            State = response.Data.state,
-            Address = response.Data.street,
-            Country = "Brazil",
-            City = response.Data.city
-        };
-
         public static UserDataDto ToUserDto(this Users user) => new
-           (user.UserId, user.FullName, user.RegistrationNumber, 
+           (user.UserId, user.FullName, user.UserName, user.RegistrationNumber, 
             user.Email, user.Phone, user.PostalCode,
             user.State, user.City, user.Country
            );
