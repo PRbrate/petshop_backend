@@ -2,6 +2,7 @@
 using PetShop.Application.MappingsConfig;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Application.Services.OtherServices;
+using PetShop.Core;
 using PetShop.Core.Entities;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
@@ -271,7 +272,7 @@ namespace PetShop.Application.Services
             if (userByIdData == null)
             {
                 response.Success = false;
-                response.Errors = "this Company not found";
+                response.Errors = "this User not found";
                 return response;
             }
             if (userDto.Email != null)
@@ -346,6 +347,37 @@ namespace PetShop.Application.Services
             }
             return user;
 
+        }
+
+        public async Task<Response<bool>> UpdateUser(int id, string password, string newPassword)
+        {
+            var passwordUserData = _usersRepository.GetPasswordById(id);
+            var response = new Response<bool>();
+
+            if (string.IsNullOrEmpty(passwordUserData))
+            {
+                response.Success = false;
+                response.Errors = "User Not Found";
+                return response;
+            }
+
+            if (!PasswordValidatorSerivce.VerifyPassword(password) && !PasswordValidatorSerivce.VerifyPassword(newPassword))
+            {
+                response.Success = false;
+                response.Errors = "Invalid Password, The meaning must have 8 characters, with lowercase characters and special characters.";
+                return response;
+            }
+            if (!PasswordCryptographyService.VerifyPassword(password, passwordUserData))
+            {
+                response.Success = false;
+                response.Errors = "password does not match the one registered in our system";
+                return response;
+            }
+
+            newPassword = PasswordCryptographyService.Cryptography(newPassword);
+            _usersRepository.UpdatePasswordUser(id, newPassword);
+            response.Data = true;
+            return response;
         }
         #endregion
     }

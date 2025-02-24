@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "PetShop.Api.Controllers.V1.UserController",
+    "Method": "UpdateUser",
+    "RelativePath": "{userId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "newPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "PetShop.Api.Controllers.V1.BrasilApiController",
     "Method": "GetCnpj",
     "RelativePath": "api/BrasilApi/{cnpj}",

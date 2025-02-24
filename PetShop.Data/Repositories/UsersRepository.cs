@@ -13,26 +13,26 @@ namespace PetShop.Data.Repositories
 {
     public class UsersRepository : RepositoryBase<Users>, IUsersRepository
     {
-        private readonly PetShopContext _Context;
+        private readonly PetShopContext _context;
 
         public UsersRepository(PetShopContext context) : base(context)
         {
-            _Context = context;
+            _context = context;
         }
 
         public async Task<Users> AuthenticateUser(string registrationNumber, string password, int i)
         {
             Users userAuth;
-            switch(i)
+            switch (i)
             {
                 case 1:
-                    userAuth = await _Context.Users.FirstOrDefaultAsync(x => x.Email == registrationNumber && x.Password == password);
+                    userAuth = await _context.Users.FirstOrDefaultAsync(x => x.Email == registrationNumber && x.Password == password);
                     break;
                 case 2:
-                    userAuth = await _Context.Users.FirstOrDefaultAsync(x => x.UserName == registrationNumber && x.Password == password);
+                    userAuth = await _context.Users.FirstOrDefaultAsync(x => x.UserName == registrationNumber && x.Password == password);
                     break;
                 case 3:
-                    userAuth = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber && x.Password == password);
+                    userAuth = await _context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber && x.Password == password);
                     break;
                 default:
                     userAuth = new Users();
@@ -43,28 +43,56 @@ namespace PetShop.Data.Repositories
 
         public async Task<Users> GetByEmailAsync(string email)
         {
-            var company = await _Context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            var company = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
             return company;
         }
 
         public async Task<Users> GetUserByRegistrationNumber(string registrationNumber)
         {
-            var usersRegistratioNumber = await _Context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber);
+            var usersRegistratioNumber = await _context.Users.FirstOrDefaultAsync(x => x.RegistrationNumber == registrationNumber);
 
             return usersRegistratioNumber;
         }
 
         public async Task<Users> GetUserByUserName(string userName)
         {
-            var uUsersName = await _Context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            var uUsersName = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
 
             return uUsersName;
         }
 
         public async Task<List<Users>> GetByPhoneNumber(string phoneNumber)
         {
-            var usersPhoneNumber = await _Context.Users.Where(u=> u.Phone == phoneNumber).ToListAsync();
+            var usersPhoneNumber = await _context.Users.Where(u => u.Phone == phoneNumber).ToListAsync();
             return usersPhoneNumber;
         }
+
+        public string GetPasswordById(int userId)
+        {
+            return _context.Users
+                .Where(u => u.UserId == userId)
+                .Select(u => u.Password) //Select only the required field
+                .FirstOrDefault();
+        }
+
+        public void UpdatePasswordUser(int userId, string password)
+        {
+
+            var user = new Users { UserId = userId };
+
+            // Attaches the object to the context
+            _context.Users.Attach(user);
+
+            // Modify only the desired field
+            user.Password = password;
+            user.UpdatedAt = DateTime.Now.ToUniversalTime();
+
+            _context.Entry(user).Property(u => u.Password).IsModified = true;
+            _context.Entry(user).Property(u => u.UpdatedAt).IsModified = true;
+
+            _context.SaveChanges();
+        }
     }
+
 }
+

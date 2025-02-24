@@ -21,7 +21,8 @@ namespace PetShop.Application.Services.Interfaces
         Task<Response<UserDataDto>> GetByEmail(string email);
         Task<bool> DeleteUser(int id);
         Task<Response<UserDataDto>> UpdateUser(int id, UserDto userDto, string code);
-        
+        Task<Response<bool>> UpdateUser(int id, string password, string newPassword);
+
 
     }
 }
