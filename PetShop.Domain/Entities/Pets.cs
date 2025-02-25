@@ -16,7 +16,8 @@ namespace PetShop.Domain.Entities
         public string FullName { get; set; }
         public Species Species { get; set; }
         public string Breed { get; set; }
-        public int Age { get; set; } 
+        public int Age { get; set; }
+        public bool NeedAttention { get; set; } = false;
         public DateTime Birthdate { get; set; }
         public Gender Gender { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;

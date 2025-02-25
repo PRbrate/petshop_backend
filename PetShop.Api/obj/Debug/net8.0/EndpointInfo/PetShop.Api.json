@@ -376,6 +376,27 @@
         }
       }
     },
+    "/api/v1/pets/GetPetsNeedAttention": {
+      "get": {
+        "tags": [
+          "Pets"
+        ],
+        "parameters": [
+          {
+            "name": "attention",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/users/Authenticate": {
       "post": {
         "tags": [
@@ -794,6 +815,9 @@
           },
           "gender": {
             "$ref": "#/components/schemas/Gender"
+          },
+          "needAttention": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

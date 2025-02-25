@@ -43,5 +43,12 @@ namespace PetShop.Data.Repositories
             return pets;
         }
 
+        public async Task<List<Pets>> GetNeedAttention(bool attention)
+        {
+            var pets = await _context.Pets.Where(x => x.NeedAttention == attention).ToListAsync();
+
+            return pets;
+        }
+
     }
 }

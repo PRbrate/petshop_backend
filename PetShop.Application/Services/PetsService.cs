@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using PetShop.Application.DTO;
+﻿using PetShop.Application.DTO;
 using PetShop.Application.MappingsConfig;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Core.Entities;
-using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
@@ -72,7 +65,7 @@ namespace PetShop.Application.Services
 
             response.Data = list;
             return response;
-        }        
+        }
 
         public async Task<Response<List<PetsDto>>> GetPets()
         {
@@ -136,6 +129,30 @@ namespace PetShop.Application.Services
             }
             response.Data = list;
             return response;
+        }
+
+
+        public async Task<Response<List<PetsDto>>> GetNeedAttention(bool attention)
+        {
+            var response = new Response<List<PetsDto>>();
+            var list = new List<PetsDto>();
+
+            var pets = await _petsRepository.GetNeedAttention(attention);
+
+            if (pets == null)
+            {
+                response.Success = false;
+                response.Errors = "Pets Not Found";
+                return response;
+            }
+
+            foreach (Pets p in pets)
+            {
+                list.Add(AutoMapperPets.Map(p));
+            }
+            response.Data = list;
+            return response;
+
         }
         public Task<Response<PetsDto>> UpdatePet(PetsDto pet, int id)
         {

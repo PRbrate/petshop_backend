@@ -171,6 +171,30 @@ namespace PetShop.Api.Controllers.V1
             }
         }
 
+        [HttpGet("GetPetsNeedAttention/")]
+        [Authorize(Roles = "Employer, Admin")]
+        public async Task<IActionResult> GetPetsNeedAttention(bool attention)
+        {
+            try
+            {
+                var response = await _petsService.GetNeedAttention(attention);
+
+                if (!response.Success)
+                {
+                    await RegisterLog("PetShop", $"Get Pet by Attention fail", new {code = 422, response.Errors });
+                    return UnprocessableEntity(response.Errors);
+                }
+
+                await RegisterLog("PetShop", $"Get Pets by Attenttion", new { code = 200, response.Success });
+                return Ok(response.Data);
+            }
+            catch (Exception ex)
+            {
+                await RegisterLog("PetShop", $"Get Pet by specie fail", new {code = 400,  ex.Message });
+                return BadRequest(ex);
+            }
+        }
+
 
         protected AuditModel LogAudit(string module, string description, string model)
         {

@@ -249,6 +249,22 @@
   },
   {
     "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
+    "Method": "GetPetsNeedAttention",
+    "RelativePath": "api/v1/pets/GetPetsNeedAttention",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "attention",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
     "Method": "GetPetsBySpecie",
     "RelativePath": "api/v1/pets/GetPetsSpecie",
     "HttpMethod": "GET",

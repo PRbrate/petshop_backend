@@ -19,9 +19,10 @@ namespace PetShop.Application.MappingsConfig
             Breed = petsDto.breed,
             Age = petsDto.age,
             Birthdate = petsDto.birthDate.ToDateTime(new TimeOnly(0,0)),
-            Gender = petsDto.gender
+            Gender = petsDto.gender,
+            NeedAttention = petsDto.needAttention
         };
         public static PetsDto Map(this Pets pets) => new(pets.PetId, pets.UserId, pets.FullName, pets.Species,
-            pets.Breed, pets.Age, DateOnly.FromDateTime(pets.Birthdate), pets.Gender);
+            pets.Breed, pets.Age, DateOnly.FromDateTime(pets.Birthdate), pets.Gender, pets.NeedAttention);
     }
 }

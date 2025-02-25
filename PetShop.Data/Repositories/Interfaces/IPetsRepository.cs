@@ -15,5 +15,6 @@ namespace PetShop.Data.Repositories.Interfaces
 
         Task<List<Pets>> GetBySpecie(Species specie);
         Task<List<Pets>> GetByGender(Gender gender);
+        Task<List<Pets>> GetNeedAttention(bool attention);
     }
 }

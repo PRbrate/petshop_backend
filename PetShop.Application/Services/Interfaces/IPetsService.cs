@@ -19,7 +19,7 @@ namespace PetShop.Application.Services.Interfaces
         Task<Response<PetsDto>> GetPetById(int id);
         Task<Response<List<PetsDto>>> GetPetByUser(int id);
         Task<Response<List<PetsDto>>> GetPetsBySpecie(Species specie);
-
         Task<Response<List<PetsDto>>> GetPetsByGender(Gender gender);
+        Task<Response<List<PetsDto>>> GetNeedAttention(bool attention);
     }
 }
