@@ -10,5 +10,7 @@ namespace PetShop.Data.Repositories.Interfaces
         Task<Users> GetUserByUserName(string userName);
         Task<Users> GetByEmailAsync(string email);
         Task<List<Users>> GetByPhoneNumber(string phoneNumber);
+        void UpdatePasswordUser(int userId, string password);
+        string GetPasswordById(int userId);
     }
 }

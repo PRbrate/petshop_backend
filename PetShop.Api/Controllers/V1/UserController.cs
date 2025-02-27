@@ -35,23 +35,24 @@ namespace PetShop.Api.Controllers.V1
             {
                 var response = await _usersService.Authenticate(RegitrationNumber, password);
 
-
-                string[] res = response.Data.Split('|');
-
-                if (!response.Success)
+                if(response.Data == null)
                 {
-                    await RegisterLog("PetShop", $"Login Fail - {res[1]}", new { response.Success });
+                    await RegisterLog("PetShop", $"Login Fail - {response.Errors}", new { response.Success });
                     return UnprocessableEntity(response.Errors);
                 }
+                
+                string[] res = response.Data.Split('|');
 
-                await RegisterLog("PetShop", $"effected Login - {res[1]}", new {response.Success});
+                await RegisterLog("PetShop", $"effected Login - {res[1]}", new { response.Success });
                 return Ok(new { jwt_token = res[0] });
+
             }
             catch (Exception ex)
             {
                 return BadRequest(new { msg = ex.Message });
             }
         }
+
         [HttpPost("CreateUser")]
         [AllowAnonymous]
         public async Task<IActionResult> CreateUser(UserDto users, string code)
@@ -62,11 +63,11 @@ namespace PetShop.Api.Controllers.V1
 
                 if (!response.Success)
                 {
-                    await RegisterLog("PetShop", $"Register User Fail - {users}", new { response.Success, response.Errors});
+                    await RegisterLog("PetShop", $"Register User Fail - {users}", new { response.Success, response.Errors });
                     return UnprocessableEntity(response.Errors);
                 }
 
-                await RegisterLog("PetShop", $"Register Sucess - {users}", new {response.Success });
+                await RegisterLog("PetShop", $"Register Sucess - {users}", new { response.Success });
                 return Ok();
             }
             catch (Exception ex)
@@ -77,11 +78,11 @@ namespace PetShop.Api.Controllers.V1
 
         [HttpGet]
         [Authorize(Roles = "Employer, Admin")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll( int pageIndex = 1, int pageSize = 10)
         {
             try
             {
-                var response = await _usersService.GetAll();
+                var response = await _usersService.GetAll(pageIndex, pageSize);
 
                 if (!response.Success)
                 {
@@ -89,7 +90,7 @@ namespace PetShop.Api.Controllers.V1
                     return UnprocessableEntity(response.Errors);
                 }
 
-                await RegisterLog("PetShop", $"Get done -  ", new { response.Success});
+                await RegisterLog("PetShop", $"Get done -  ", new { response.Success });
                 return Ok(response.Data);
             }
             catch (Exception ex)
@@ -97,6 +98,7 @@ namespace PetShop.Api.Controllers.V1
                 return BadRequest(ex);
             }
         }
+
         [HttpGet("GetById/{userId}")]
         [Authorize(Roles = "Employer, Admin")]
         public async Task<IActionResult> GetById(int userId)
@@ -174,12 +176,12 @@ namespace PetShop.Api.Controllers.V1
 
         [HttpGet("GetByPhoneNumber/{phonenumber}")]
         [Authorize(Roles = "Employer, Admin")]
-        public async Task<IActionResult> GetByPhoneNumber(string phonenumber)
+        public async Task<IActionResult> GetByPhoneNumber(string phonenumber, int pageIndex = 1, int pageSize = 10)
         {
             {
                 try
                 {
-                    var response = await _usersService.GetByPhoneNumber(phonenumber);
+                    var response = await _usersService.GetByPhoneNumber(phonenumber, pageIndex, pageSize);
 
                     if (!response.Success)
                     {
@@ -201,12 +203,23 @@ namespace PetShop.Api.Controllers.V1
         [Authorize(Roles = "Employer, Admin")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
-            var users = await _usersService.DeleteUser(userId);
-            if (!users)
+            try
             {
-                return UnprocessableEntity(users);
+                var users = await _usersService.DeleteUser(userId);
+                if (!users)
+                {
+                    await RegisterLog("PetShop", $"Delete User Fail - {userId}");
+                    return UnprocessableEntity(users);
+                }
+
+                await RegisterLog("PetShop", $"Delete User - {userId}");
+                return Ok();
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                await RegisterLog("PetShop", $"Delete User  Fail - {userId}", new { ex.Message });
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{code}/{userId}")]
@@ -223,11 +236,37 @@ namespace PetShop.Api.Controllers.V1
                     return UnprocessableEntity(response.Errors);
                 }
 
-                await RegisterLog("PetShop", $"Updete User Sucess - {userDto}", new { response.Success});
+                await RegisterLog("PetShop", $"Updete User Sucess - {userDto}", new { response.Success });
                 return Ok(response.Success);
             }
             catch (Exception ex)
             {
+                await RegisterLog("PetShop", $"Update User Fail - {userDto}", new { ex.Message });
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpPatch("{userId}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser(int userId, string password, string newPassword)
+        {
+
+            try
+            {
+                var response = await _usersService.UpdateUser(userId, password, newPassword);
+                if (!response.Success)
+                {
+                    await RegisterLog("PetShop", $"Update User Password Fail - {userId}", new { response.Success, response.Errors });
+                    return UnprocessableEntity(response.Errors);
+                }
+
+                await RegisterLog("PetShop", $"Updete User Password Sucess - {userId}", new { response.Success });
+                return Ok(response.Success);
+            }
+            catch (Exception ex)
+            {
+                await RegisterLog("PetShop", $"Update User Password Fail - {userId}", new { ex.Message });
                 return BadRequest(ex.Message);
             }
 
@@ -237,7 +276,6 @@ namespace PetShop.Api.Controllers.V1
         {
             return _audit.RegisterLog(HttpContext, module, description, model);
         }
-
         private async Task RegisterLog(string module, string description, object objectModel = null)
         {
             try

@@ -1,8 +1,11 @@
-﻿using PetShop.Application.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Application.DTO;
 using PetShop.Application.MappingsConfig;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Application.Services.OtherServices;
+using PetShop.Core;
 using PetShop.Core.Entities;
+using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
@@ -180,24 +183,28 @@ namespace PetShop.Application.Services
         }
 
         #region gets
-        public async Task<Response<List<UserDataDto>>> GetAll()
+        public async Task<Response<PaginationResult<UserDataDto>>> GetAll(int pageIndex, int pageSize)
         {
-            var list = new List<UserDataDto>();
-            var response = new Response<List<UserDataDto>>();
-            var user = await _usersRepository.GetAllAsync();
-            if (user == null)
-            {
-                response.Success = false;
-                response.Errors = "There is no such data on the database";
-                return response;
-            }
+            var users = _usersRepository.GetAllAsync();
 
-            foreach (Users u in user)
+            var items = await users
+                .OrderBy(p => p.FullName)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var totalCount = items.Count();
+            var list = new List<UserDataDto>();
+
+            foreach (Users u in items)
             {
                 list.Add(AutoMapperUsers.ToUserDto(u));
             }
-            response.Data = list;
+            var pag = new PaginationResult<UserDataDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<UserDataDto>>(pag);
+
             return response;
+
         }
 
         public async Task<Response<UserDataDto>> GetByRegistrationNumber(string registrationNumber)
@@ -228,23 +235,27 @@ namespace PetShop.Application.Services
             response.Data = AutoMapperUsers.ToUserDto(user);
             return response;
         }
-        public async Task<Response<List<UserDataDto>>> GetByPhoneNumber(string phoneNumber)
+        public async Task<Response<PaginationResult<UserDataDto>>> GetByPhoneNumber(string phoneNumber, int pageIndex, int pageSize)
         {
-            var list = new List<UserDataDto>();
-            var response = new Response<List<UserDataDto>>();
-            var user = await _usersRepository.GetByPhoneNumber(phoneNumber);
-            if (user == null)
-            {
-                response.Success = false;
-                response.Errors = "There is no such data with PhoneNumber on the database";
-                return response;
-            }
+            var users = _usersRepository.GetAllAsync();
 
-            foreach (Users u in user)
+            var items = await users
+                .OrderBy(u => u.FullName)
+                .Where(x => x.Phone == phoneNumber)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var totalCount = items.Count();
+            var list = new List<UserDataDto>();
+
+            foreach (Users u in items)
             {
                 list.Add(AutoMapperUsers.ToUserDto(u));
             }
-            response.Data = list;
+            var pag = new PaginationResult<UserDataDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<UserDataDto>>(pag);
+
             return response;
         }
         public async Task<Response<UserDataDto>> GetById(int id)
@@ -271,7 +282,7 @@ namespace PetShop.Application.Services
             if (userByIdData == null)
             {
                 response.Success = false;
-                response.Errors = "this Company not found";
+                response.Errors = "this User not found";
                 return response;
             }
             if (userDto.Email != null)
@@ -346,6 +357,37 @@ namespace PetShop.Application.Services
             }
             return user;
 
+        }
+
+        public async Task<Response<bool>> UpdateUser(int id, string password, string newPassword)
+        {
+            var passwordUserData = _usersRepository.GetPasswordById(id);
+            var response = new Response<bool>();
+
+            if (string.IsNullOrEmpty(passwordUserData))
+            {
+                response.Success = false;
+                response.Errors = "User Not Found";
+                return response;
+            }
+
+            if (!PasswordValidatorSerivce.VerifyPassword(password) && !PasswordValidatorSerivce.VerifyPassword(newPassword))
+            {
+                response.Success = false;
+                response.Errors = "Invalid Password, The meaning must have 8 characters, with lowercase characters and special characters.";
+                return response;
+            }
+            if (!PasswordCryptographyService.VerifyPassword(password, passwordUserData))
+            {
+                response.Success = false;
+                response.Errors = "password does not match the one registered in our system";
+                return response;
+            }
+
+            newPassword = PasswordCryptographyService.Cryptography(newPassword);
+            _usersRepository.UpdatePasswordUser(id, newPassword);
+            response.Data = true;
+            return response;
         }
         #endregion
     }

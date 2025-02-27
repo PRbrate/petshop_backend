@@ -15,7 +15,7 @@ namespace PetShop.Application.Services.Interfaces
         Task<Response<CompaniesDto>> UpdateCompany(int id, CompaniesUpdateDto companiesDto);
         Task<bool> DeleteCompany(int id);
         Task<Response<CompaniesDto>> GetCompany(int id);
-        Task<Response<List<CompaniesDto>>> GetAllCompanies();
+        Task<Response<PaginationResult<CompaniesDto>>> GetAllCompanies(int pageIndex, int pageSize);
         Task<Response<CompaniesDto>> GetCompaniesByRegisterNumber(string cnpj);
     }
 }

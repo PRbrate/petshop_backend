@@ -31,11 +31,11 @@ namespace PetShop.Api.Controllers.V1
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetCompanies()
+        public async Task<IActionResult> GetCompanies(int pageIndex = 1, int pageSize = 10)
         {
             try
             {
-                var companies = await _companiesService.GetAllCompanies();
+                var companies = await _companiesService.GetAllCompanies(pageIndex, pageSize);
                 if (!companies.Success)
                 {
                     await RegisterLog("PetShop", $"Get Companies fail - Admin", new { companies.Errors });
@@ -77,7 +77,7 @@ namespace PetShop.Api.Controllers.V1
             }
         }
 
-        [HttpGet("/cnpj/{register}")]
+        [HttpGet("cnpj/{register}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetCompanyRegiter(string register)
         {

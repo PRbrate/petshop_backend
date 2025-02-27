@@ -1,8 +1,10 @@
-﻿using PetShop.Application.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Application.DTO;
 using PetShop.Application.Filters;
 using PetShop.Application.MappingsConfig;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Core.Entities;
+using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
@@ -32,19 +34,26 @@ namespace PetShop.Application.Services
             return true;
         }
 
-        public async Task<Response<List<CompaniesDto>>> GetAllCompanies()
+        public async Task<Response<PaginationResult<CompaniesDto>>> GetAllCompanies(int pageIndex, int pageSize)
         {
-            var response = new Response<List<CompaniesDto>>();
+            var pets = _companiesRepository.GetAllAsync();
 
-            var companies = await _companiesRepository.GetAllAsync();
-            var allcompanies = new List<CompaniesDto>();
+            var items = await pets
+                .OrderBy(p => p.CompanyName)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
-            foreach (var item in companies)
+            var totalCount = items.Count();
+            var list = new List<CompaniesDto>();
+
+            foreach (Companies c in items)
             {
-                allcompanies.Add(AutoMapperCompanies.ToCompaniesDto(item));
+                list.Add(AutoMapperCompanies.ToCompaniesDto(c));
             }
+            var pag = new PaginationResult<CompaniesDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<CompaniesDto>>(pag);
 
-            response.Data = allcompanies;
             return response;
 
         }
