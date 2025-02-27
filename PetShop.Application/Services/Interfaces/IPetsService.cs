@@ -15,11 +15,11 @@ namespace PetShop.Application.Services.Interfaces
         Task<Response<PetsDto>> CreatePet(PetsDto pet);
         Task<Response<PetsDto>> UpdatePet(PetsDto pet, int id);
         Task<Response<PetsDto>> DeletePet(int id);
-        Task<Response<List<PetsDto>>> GetPets();
+        Task<Response<PaginationResult<PetsDto>>> GetPets(int pageIndex, int pageSize);
         Task<Response<PetsDto>> GetPetById(int id);
         Task<Response<List<PetsDto>>> GetPetByUser(int id);
-        Task<Response<List<PetsDto>>> GetPetsBySpecie(Species specie);
-        Task<Response<List<PetsDto>>> GetPetsByGender(Gender gender);
-        Task<Response<List<PetsDto>>> GetNeedAttention(bool attention);
+        Task<Response<PaginationResult<PetsDto>>> GetPetsBySpecie(Species specie, int pageIndex, int pageSize);
+        Task<Response<PaginationResult<PetsDto>>> GetPetsByGender(Gender gender, int pageIndex, int pageSize);
+        Task<Response<PaginationResult<PetsDto>>> GetNeedAttention(bool attention, int pageIndex, int pageSize);
     }
 }

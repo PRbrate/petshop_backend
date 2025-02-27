@@ -5,7 +5,7 @@ using PetShop.Facade.Interfaces;
 
 namespace PetShop.Api.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/BrasilApi")]
     [ApiController]
     public class BrasilApiController : ControllerBase
     {

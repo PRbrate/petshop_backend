@@ -28,7 +28,7 @@
   {
     "ContainingType": "PetShop.Api.Controllers.V1.BrasilApiController",
     "Method": "GetCnpj",
-    "RelativePath": "api/BrasilApi/{cnpj}",
+    "RelativePath": "api/v1/BrasilApi/{cnpj}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -44,7 +44,7 @@
   {
     "ContainingType": "PetShop.Api.Controllers.V1.BrasilApiController",
     "Method": "GetCep",
-    "RelativePath": "api/BrasilApi/GetCep/{cep}",
+    "RelativePath": "api/v1/BrasilApi/GetCep/{cep}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -58,50 +58,24 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "PetShop.Api.Controllers.V1.MailSendController",
-    "Method": "SendMail",
-    "RelativePath": "api/mailSend",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PetShop.Api.Controllers.V1.MailSendController",
-    "Method": "VerifyCodigo",
-    "RelativePath": "api/mailSend/verify",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "PetShop.Api.Controllers.V1.CompanyController",
     "Method": "GetCompanies",
     "RelativePath": "api/v1/companies",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -174,6 +148,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PetShop.Api.Controllers.V1.MailSendController",
+    "Method": "SendMail",
+    "RelativePath": "api/v1/mailSend",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.MailSendController",
+    "Method": "VerifyCodigo",
+    "RelativePath": "api/v1/mailSend/verify",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "PetShop.Api.Controllers.V1.PetsController",
     "Method": "CreatePet",
     "RelativePath": "api/v1/pets/CreatePet",
@@ -196,7 +207,18 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -243,6 +265,16 @@
         "Name": "gender",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -258,6 +290,16 @@
       {
         "Name": "attention",
         "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
@@ -275,6 +317,16 @@
         "Name": "species",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -286,7 +338,18 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -417,6 +480,16 @@
         "Name": "phonenumber",
         "Type": "System.String",
         "IsRequired": true
+      },
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

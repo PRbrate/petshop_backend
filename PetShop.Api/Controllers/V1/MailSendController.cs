@@ -3,7 +3,7 @@ using PetShop.Application.Services.OtherServices;
 
 namespace PetShop.Api.Controllers.V1
 {
-    [Route("api/mailSend")]
+    [Route("api/v1/mailSend")]
     [ApiController]
     public class MailSendController : ControllerBase
     {

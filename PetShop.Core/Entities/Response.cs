@@ -15,5 +15,12 @@ namespace PetShop.Core.Entities
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Errors { get; set; }
         public ExpandoObject? ExternalErrors{ get; set; }
+
+        public Response() { }
+
+        public Response(T data)
+        {
+            Data = data;
+        }
     }
 }

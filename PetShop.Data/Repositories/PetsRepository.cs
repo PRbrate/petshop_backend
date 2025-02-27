@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PetShop.Core.Base;
 using PetShop.Core.Base.Interfaces;
+using PetShop.Core.Entities;
 using PetShop.Data.Context;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
@@ -29,26 +30,28 @@ namespace PetShop.Data.Repositories
             return pets;
         }
 
-        public async Task<List<Pets>> GetBySpecie(Species specie)
-        {
-            var pets = await _context.Pets.Where(x => x.Species == specie).ToListAsync();
+        //public async Task<IQueryable<Pets>> GetBySpecie()
+        //{
+        //    return  _context.Pets.AsQueryable();
 
-            return pets;
-        }
+        //    //var totalCount = await query.CountAsync();
 
-        public async Task<List<Pets>> GetByGender(Gender gender)
-        {
-            var pets = await _context.Pets.Where(x => x.Gender == gender).ToListAsync();
+        //    //return new PaginationResult<Pets>(items, totalCount, pageIndex, pageSize);
+        //}
 
-            return pets;
-        }
+        //public async Task<List<Pets>> GetByGender(Gender gender)
+        //{
+        //    var pets = await _context.Pets.Where(x => x.Gender == gender).ToListAsync();
 
-        public async Task<List<Pets>> GetNeedAttention(bool attention)
-        {
-            var pets = await _context.Pets.Where(x => x.NeedAttention == attention).ToListAsync();
+        //    return pets;
+        //}
 
-            return pets;
-        }
+        //public async Task<List<Pets>> GetNeedAttention(bool attention)
+        //{
+        //    var pets = await _context.Pets.Where(x => x.NeedAttention == attention).ToListAsync();
+
+        //    return pets;
+        //}
 
     }
 }

@@ -15,8 +15,8 @@ namespace PetShop.Application.Services.Interfaces
         Task<Response<Users>> CreateUser(UserDto users, string code);
         Task<Response<string>> Authenticate(string RegistrationNumber, string password);
         Task<Response<UserDataDto>> GetById(int id);
-        Task<Response<List<UserDataDto>>> GetAll();
-        Task<Response<List<UserDataDto>>> GetByPhoneNumber(string phoneNumber);
+        Task<Response<PaginationResult<UserDataDto>>> GetAll(int pageIndex, int pageSize);
+        Task<Response<PaginationResult<UserDataDto>>> GetByPhoneNumber(string phoneNumber, int pageIndex, int pageSize);
         Task<Response<UserDataDto>> GetByRegistrationNumber(string registrationNumber);
         Task<Response<UserDataDto>> GetByEmail(string email);
         Task<bool> DeleteUser(int id);

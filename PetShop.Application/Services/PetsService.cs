@@ -1,10 +1,12 @@
-﻿using PetShop.Application.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Application.DTO;
 using PetShop.Application.MappingsConfig;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Core.Entities;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PetShop.Application.Services
 {
@@ -67,90 +69,93 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public async Task<Response<List<PetsDto>>> GetPets()
+        public async Task<Response<PaginationResult<PetsDto>>> GetPets(int pageIndex, int pageSize)
         {
-            var response = new Response<List<PetsDto>>();
+            var pets = _petsRepository.GetAllAsync();
+
+            var items = await pets
+                .OrderBy(p => p.FullName)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            var totalCount = items.Count();
             var list = new List<PetsDto>();
-
-            var pets = await _petsRepository.GetAllAsync();
-            if (pets == null)
-            {
-                response.Success = false;
-                response.Errors = "There is no such data on the database";
-                return response;
-            }
-
-            foreach (Pets p in pets)
+            foreach (Pets p in items)
             {
                 list.Add(AutoMapperPets.Map(p));
             }
-            response.Data = list;
+            var pag = new PaginationResult<PetsDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<PetsDto>>(pag);
             return response;
         }
 
-        public async Task<Response<List<PetsDto>>> GetPetsBySpecie(Species specie)
-        {
-            var response = new Response<List<PetsDto>>();
+        public async Task<Response<PaginationResult<PetsDto>>> GetPetsBySpecie(Species specie, int pageIndex, int pageSize)
+        {            
+            var pets = _petsRepository.GetAllAsync();
+
+            var items = await pets
+                .OrderBy(p => p.FullName)
+                .Where(x => x.Species == specie)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            var totalCount = items.Count();
             var list = new List<PetsDto>();
 
-            var pets = await _petsRepository.GetBySpecie(specie);
-            if (pets == null)
-            {
-                response.Success = false;
-                response.Errors = "Pets Not Found";
-                return response;
-            }
-
-            foreach (Pets p in pets)
+            foreach (Pets p in items)
             {
                 list.Add(AutoMapperPets.Map(p));
             }
-            response.Data = list;
+            var pag = new PaginationResult<PetsDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<PetsDto>>(pag);
+            
             return response;
         }
 
-        public async Task<Response<List<PetsDto>>> GetPetsByGender(Gender gender)
+        public async Task<Response<PaginationResult<PetsDto>>> GetPetsByGender(Gender gender, int pageIndex, int pageSize)
         {
-            var response = new Response<List<PetsDto>>();
+            var pets = _petsRepository.GetAllAsync();
+
+            var items = await pets
+                .OrderBy(p => p.FullName)
+                .Where(x => x.Gender == gender)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            var totalCount = items.Count();
             var list = new List<PetsDto>();
 
-            var pets = await _petsRepository.GetByGender(gender);
-
-            if (pets == null)
-            {
-                response.Success = false;
-                response.Errors = "Pets Not Found";
-                return response;
-            }
-
-            foreach (Pets p in pets)
+            foreach (Pets p in items)
             {
                 list.Add(AutoMapperPets.Map(p));
             }
-            response.Data = list;
+            var pag = new PaginationResult<PetsDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<PetsDto>>(pag);
+
             return response;
         }
 
 
-        public async Task<Response<List<PetsDto>>> GetNeedAttention(bool attention)
+        public async Task<Response<PaginationResult<PetsDto>>> GetNeedAttention(bool attention, int pageIndex, int pageSize)
         {
-            var response = new Response<List<PetsDto>>();
+            var pets = _petsRepository.GetAllAsync();
+
+            var items = await pets
+                .OrderBy(p => p.FullName)
+                .Where(x => x.NeedAttention == attention)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            var totalCount = items.Count();
             var list = new List<PetsDto>();
 
-            var pets = await _petsRepository.GetNeedAttention(attention);
-
-            if (pets == null)
-            {
-                response.Success = false;
-                response.Errors = "Pets Not Found";
-                return response;
-            }
-
-            foreach (Pets p in pets)
+            foreach (Pets p in items)
             {
                 list.Add(AutoMapperPets.Map(p));
             }
-            response.Data = list;
+            var pag = new PaginationResult<PetsDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<PetsDto>>(pag);
+
             return response;
 
         }

@@ -53,11 +53,11 @@ namespace PetShop.Api.Controllers.V1
 
         [HttpGet("GetAllPets/")]
         [Authorize(Roles = "Employer, Admin")]
-        public async Task<IActionResult> GetALlPets()
+        public async Task<IActionResult> GetALlPets(int pageIndex = 1, int pageSize = 10)
         {
             try
             {
-                var response = await _petsService.GetPets();
+                var response = await _petsService.GetPets(pageIndex, pageSize);
 
                 if (!response.Success)
                 {
@@ -125,11 +125,11 @@ namespace PetShop.Api.Controllers.V1
 
         [HttpGet("GetPetsSpecie/")]
         [Authorize(Roles = "Employer, Admin")]
-        public async Task<IActionResult> GetPetsBySpecie(Species species)
+        public async Task<IActionResult> GetPetsBySpecie(Species species, int pageIndex = 1, int pageSize = 10)
         {
             try
             {
-                var response = await _petsService.GetPetsBySpecie(species);
+                var response = await _petsService.GetPetsBySpecie(species, pageIndex, pageSize);
 
                 if (!response.Success)
                 {
@@ -143,17 +143,17 @@ namespace PetShop.Api.Controllers.V1
             catch (Exception ex)
             {
                 await RegisterLog("PetShop", $"Get Pet by specie fail", new { ex.Message });
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpGet("GetPetsGender/")]
         [Authorize(Roles = "Employer, Admin")]
-        public async Task<IActionResult> GetPetsByGender(Gender gender)
+        public async Task<IActionResult> GetPetsByGender(Gender gender, int pageIndex = 1, int pageSize = 10)
         {
             try
             {
-                var response = await _petsService.GetPetsByGender(gender);
+                var response = await _petsService.GetPetsByGender(gender, pageIndex, pageSize);
 
                 if (!response.Success)
                 {
@@ -173,11 +173,11 @@ namespace PetShop.Api.Controllers.V1
 
         [HttpGet("GetPetsNeedAttention/")]
         [Authorize(Roles = "Employer, Admin")]
-        public async Task<IActionResult> GetPetsNeedAttention(bool attention)
+        public async Task<IActionResult> GetPetsNeedAttention(bool attention, int pageIndex = 1, int pageSize = 10)
         {
             try
             {
-                var response = await _petsService.GetNeedAttention(attention);
+                var response = await _petsService.GetNeedAttention(attention, pageIndex, pageSize);
 
                 if (!response.Success)
                 {

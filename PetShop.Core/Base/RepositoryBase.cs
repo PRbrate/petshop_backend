@@ -32,9 +32,9 @@ namespace PetShop.Core.Base
 
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public IQueryable<T> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return  _dbSet.AsQueryable<T>();
         }
 
         public async Task<T> GetAsync(int id)

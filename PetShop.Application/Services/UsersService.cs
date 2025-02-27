@@ -1,9 +1,11 @@
-﻿using PetShop.Application.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Application.DTO;
 using PetShop.Application.MappingsConfig;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Application.Services.OtherServices;
 using PetShop.Core;
 using PetShop.Core.Entities;
+using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
@@ -181,24 +183,28 @@ namespace PetShop.Application.Services
         }
 
         #region gets
-        public async Task<Response<List<UserDataDto>>> GetAll()
+        public async Task<Response<PaginationResult<UserDataDto>>> GetAll(int pageIndex, int pageSize)
         {
-            var list = new List<UserDataDto>();
-            var response = new Response<List<UserDataDto>>();
-            var user = await _usersRepository.GetAllAsync();
-            if (user == null)
-            {
-                response.Success = false;
-                response.Errors = "There is no such data on the database";
-                return response;
-            }
+            var users = _usersRepository.GetAllAsync();
 
-            foreach (Users u in user)
+            var items = await users
+                .OrderBy(p => p.FullName)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var totalCount = items.Count();
+            var list = new List<UserDataDto>();
+
+            foreach (Users u in items)
             {
                 list.Add(AutoMapperUsers.ToUserDto(u));
             }
-            response.Data = list;
+            var pag = new PaginationResult<UserDataDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<UserDataDto>>(pag);
+
             return response;
+
         }
 
         public async Task<Response<UserDataDto>> GetByRegistrationNumber(string registrationNumber)
@@ -229,23 +235,27 @@ namespace PetShop.Application.Services
             response.Data = AutoMapperUsers.ToUserDto(user);
             return response;
         }
-        public async Task<Response<List<UserDataDto>>> GetByPhoneNumber(string phoneNumber)
+        public async Task<Response<PaginationResult<UserDataDto>>> GetByPhoneNumber(string phoneNumber, int pageIndex, int pageSize)
         {
-            var list = new List<UserDataDto>();
-            var response = new Response<List<UserDataDto>>();
-            var user = await _usersRepository.GetByPhoneNumber(phoneNumber);
-            if (user == null)
-            {
-                response.Success = false;
-                response.Errors = "There is no such data with PhoneNumber on the database";
-                return response;
-            }
+            var users = _usersRepository.GetAllAsync();
 
-            foreach (Users u in user)
+            var items = await users
+                .OrderBy(u => u.FullName)
+                .Where(x => x.Phone == phoneNumber)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var totalCount = items.Count();
+            var list = new List<UserDataDto>();
+
+            foreach (Users u in items)
             {
                 list.Add(AutoMapperUsers.ToUserDto(u));
             }
-            response.Data = list;
+            var pag = new PaginationResult<UserDataDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<UserDataDto>>(pag);
+
             return response;
         }
         public async Task<Response<UserDataDto>> GetById(int id)

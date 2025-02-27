@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/BrasilApi/{cnpj}": {
+    "/api/v1/BrasilApi/{cnpj}": {
       "get": {
         "tags": [
           "BrasilApi"
@@ -27,7 +27,7 @@
         }
       }
     },
-    "/api/BrasilApi/GetCep/{cep}": {
+    "/api/v1/BrasilApi/GetCep/{cep}": {
       "get": {
         "tags": [
           "BrasilApi"
@@ -53,6 +53,26 @@
       "get": {
         "tags": [
           "Company"
+        ],
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -196,7 +216,7 @@
         }
       }
     },
-    "/api/mailSend": {
+    "/api/v1/mailSend": {
       "post": {
         "tags": [
           "MailSend"
@@ -217,7 +237,7 @@
         }
       }
     },
-    "/api/mailSend/verify": {
+    "/api/v1/mailSend/verify": {
       "post": {
         "tags": [
           "MailSend"
@@ -280,6 +300,26 @@
       "get": {
         "tags": [
           "Pets"
+        ],
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -346,6 +386,24 @@
             "schema": {
               "$ref": "#/components/schemas/Species"
             }
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
           }
         ],
         "responses": {
@@ -367,6 +425,24 @@
             "schema": {
               "$ref": "#/components/schemas/Gender"
             }
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
           }
         ],
         "responses": {
@@ -387,6 +463,24 @@
             "in": "query",
             "schema": {
               "type": "boolean"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
             }
           }
         ],
@@ -469,6 +563,26 @@
       "get": {
         "tags": [
           "User"
+        ],
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -556,6 +670,24 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
             }
           }
         ],

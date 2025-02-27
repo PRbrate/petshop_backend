@@ -78,11 +78,11 @@ namespace PetShop.Api.Controllers.V1
 
         [HttpGet]
         [Authorize(Roles = "Employer, Admin")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll( int pageIndex = 1, int pageSize = 10)
         {
             try
             {
-                var response = await _usersService.GetAll();
+                var response = await _usersService.GetAll(pageIndex, pageSize);
 
                 if (!response.Success)
                 {
@@ -176,12 +176,12 @@ namespace PetShop.Api.Controllers.V1
 
         [HttpGet("GetByPhoneNumber/{phonenumber}")]
         [Authorize(Roles = "Employer, Admin")]
-        public async Task<IActionResult> GetByPhoneNumber(string phonenumber)
+        public async Task<IActionResult> GetByPhoneNumber(string phonenumber, int pageIndex = 1, int pageSize = 10)
         {
             {
                 try
                 {
-                    var response = await _usersService.GetByPhoneNumber(phonenumber);
+                    var response = await _usersService.GetByPhoneNumber(phonenumber, pageIndex, pageSize);
 
                     if (!response.Success)
                     {
@@ -247,7 +247,7 @@ namespace PetShop.Api.Controllers.V1
 
         }
 
-        [HttpPatch("/{userId}")]
+        [HttpPatch("{userId}")]
         [Authorize]
         public async Task<IActionResult> UpdateUser(int userId, string password, string newPassword)
         {
