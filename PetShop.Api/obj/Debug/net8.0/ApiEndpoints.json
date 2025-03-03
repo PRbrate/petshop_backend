@@ -332,6 +332,75 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PetShop.Api.Controllers.V1.ServicesController",
+    "Method": "CreateService",
+    "RelativePath": "api/v1/services/CreateService",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "service",
+        "Type": "PetShop.Application.DTO.ServiceDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.ServicesController",
+    "Method": "GetAllServices",
+    "RelativePath": "api/v1/services/GetAllServices",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.ServicesController",
+    "Method": "GetPetsById",
+    "RelativePath": "api/v1/services/GetServicesById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.ServicesController",
+    "Method": "GetPetsByName",
+    "RelativePath": "api/v1/services/GetServicesByName/{name}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "PetShop.Api.Controllers.V1.UserController",
     "Method": "GetAll",
     "RelativePath": "api/v1/users",

@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTQ\" />
+    <Compile Remove="DTQ\**" />
+    <EmbeddedResource Remove="DTQ\**" />
+    <None Remove="DTQ\**" />
   </ItemGroup>
 
   <ItemGroup>

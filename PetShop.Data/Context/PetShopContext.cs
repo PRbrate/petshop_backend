@@ -16,7 +16,7 @@ namespace PetShop.Data.Context
         public DbSet <Users> Users { get; set; }
         public DbSet <Companies> Companies { get; set; }
         public DbSet <Appointments> Appointments { get; set; }
-        public DbSet <Services> Services { get; set; }
+        public DbSet <Service> Services { get; set; }
         public DbSet <ServiceGroup> ServiceGroup { get; set; }
         public DbSet <Pets> Pets { get; set; }
 
