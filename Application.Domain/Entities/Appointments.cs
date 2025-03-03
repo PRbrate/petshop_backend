@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using PetShop.Domain.Entities;
 
 
-namespace PetShop.Domain.Entities
+namespace Appointment.Domain.Entities
 {
     public class Appointments
     {
@@ -20,12 +20,11 @@ namespace PetShop.Domain.Entities
 
 
         public DateTime AppointmentDate { get; set; }
-        public StatusAppointments StatusAppointment { get; set; }
+        public StatusAppointments Status { get; set; }
         public float TotalPrice { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public string Notes { get; set; }
-        public Status Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
 

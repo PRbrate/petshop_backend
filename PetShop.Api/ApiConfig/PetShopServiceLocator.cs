@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Appointment.Data.Repositories;
+using Appointment.Data.Repositories.Interfaces;
 using PetShop.Application.Services;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Application.Services.OtherServices;

@@ -1,14 +1,9 @@
-﻿using PetShop.Core.Base;
+﻿using Appointment.Data.Repositories.Interfaces;
+using PetShop.Core.Base;
 using PetShop.Data.Context;
-using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PetShop.Data.Repositories
+namespace Appointment.Data.Repositories
 {
     public class AppointmentsRepository : RepositoryBase<Appointments>, IAppointmentsRepository
     {

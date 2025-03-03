@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PetShop.Data.Repositories
 {
-    public class ServiceRepository : RepositoryBase<Service>,  IServiceRepository
+    public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
     {
         private readonly PetShopContext _context;
 

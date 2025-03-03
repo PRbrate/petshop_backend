@@ -1,4 +1,6 @@
-﻿namespace PetShop.Domain.Entities
+﻿using PetShop.Domain.Entities;
+
+namespace PetShop.Domain.Entities
 {
     public class ServiceGroup
     {
