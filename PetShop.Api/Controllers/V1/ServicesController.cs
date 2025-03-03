@@ -49,6 +49,50 @@ namespace PetShop.Api.Controllers.V1
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateService(int id, ServiceDto serviceDto)
+        {
+            try
+            {
+                var service = await _servicesService.UpdateService(id, serviceDto);
+                if (!service.Success)
+                {
+                    await RegisterLog("PetShop", $"Update Service fail ", new { service.Errors });
+                    return UnprocessableEntity(service.Errors);
+                }
+
+                await RegisterLog("PetShop", $"Update Service", new { service.Success, service.Data });
+                return Ok(service.Success);
+            }
+            catch (Exception ex)
+            {
+                await RegisterLog("PetShop", $"Update Service fail", new { ex.Message });
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePet(int id)
+        {
+            try
+            {
+                var companies = await _servicesService.DeleteService(id);
+                if (!companies)
+                {
+                    await RegisterLog("PetShop", $"Delete Service fail");
+                    return UnprocessableEntity(companies);
+                }
+
+                await RegisterLog("PetShop", $"Delete Service", new { companies });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                await RegisterLog("PetShop", $"Delete Service fail", new { ex.Message });
+                return BadRequest(ex.Message);
+            }
+        }
+        #region gets
         [HttpGet("GetAllServices/")]
         [Authorize]
         public async Task<IActionResult> GetAllServices(int pageIndex = 1, int pageSize = 10)
@@ -118,6 +162,7 @@ namespace PetShop.Api.Controllers.V1
                 return BadRequest(ex);
             }
         }
+        #endregion
 
         protected AuditModel LogAudit(string module, string description, string model)
         {

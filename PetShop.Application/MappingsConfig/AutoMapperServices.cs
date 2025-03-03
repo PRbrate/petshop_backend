@@ -21,9 +21,9 @@ namespace PetShop.Application.MappingsConfig
                 service.Name = serviceDto.name;
             if (!string.IsNullOrWhiteSpace(serviceDto.descripton) && serviceDto.descripton != "string")
                 service.Description = serviceDto.descripton;
-            if (!double.IsNaN(serviceDto.duration))
+            if (!double.IsNaN(serviceDto.duration) && serviceDto.duration != 0)
                 service.Duration = serviceDto.duration;
-            if (!double.IsNaN(serviceDto.price))
+            if (!double.IsNaN(serviceDto.price) && serviceDto.price != 0)
                 service.Price = serviceDto.price;
         }
 

@@ -51,6 +51,51 @@ namespace PetShop.Api.Controllers.V1
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePet(int id, PetsDto petsDto)
+        {
+            try
+            {
+                var pet = await _petsService.UpdatePet(petsDto, id);
+                if (!pet.Success)
+                {
+                    await RegisterLog("PetShop", $"Update Pet fail ", new { pet.Errors });
+                    return UnprocessableEntity(pet.Errors);
+                }
+
+                await RegisterLog("PetShop", $"Update Pet", new { pet.Success, pet.Data });
+                return Ok(pet.Success);
+            }
+            catch (Exception ex)
+            {
+                await RegisterLog("PetShop", $"Update Pet fail", new { ex.Message });
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePet(int id)
+        {
+            try
+            {
+                var companies = await _petsService.DeletePet(id);
+                if (!companies)
+                {
+                    await RegisterLog("PetShop", $"Delete Pet fail");
+                    return UnprocessableEntity(companies);
+                }
+
+                await RegisterLog("PetShop", $"Delete Pet", new { companies });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                await RegisterLog("PetShop", $"Delete Pet fail", new { ex.Message });
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpGet("GetAllPets/")]
         [Authorize(Roles = "Employer, Admin")]
         public async Task<IActionResult> GetALlPets(int pageIndex = 1, int pageSize = 10)

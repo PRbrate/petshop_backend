@@ -333,6 +333,43 @@
   },
   {
     "ContainingType": "PetShop.Api.Controllers.V1.ServicesController",
+    "Method": "UpdateService",
+    "RelativePath": "api/v1/services/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "serviceDto",
+        "Type": "PetShop.Application.DTO.ServiceDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.ServicesController",
+    "Method": "DeleteCompany",
+    "RelativePath": "api/v1/services/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PetShop.Api.Controllers.V1.ServicesController",
     "Method": "CreateService",
     "RelativePath": "api/v1/services/CreateService",
     "HttpMethod": "POST",

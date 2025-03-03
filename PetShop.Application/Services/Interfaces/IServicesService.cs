@@ -15,7 +15,7 @@ namespace PetShop.Application.Services.Interfaces
         Task<Response<ServiceDto>> GetById(int id);
         Task<Response<ServiceDto>> GetByName(string name);
         Task<Response<PaginationResult<ServiceDto>>> GetAll(int pageIndex, int pageSize);
-        Task<bool> DeleteUser(int id);
+        Task<bool> DeleteService(int id);
         Task<Response<ServiceDto>> UpdateService(int id, ServiceDto serviceDto);
     }
 }

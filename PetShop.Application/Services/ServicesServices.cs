@@ -34,7 +34,7 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public async Task<bool> DeleteUser(int id)
+        public async Task<bool> DeleteService(int id)
         {
             var getService = await _serviceRepository.GetAsync(id);
             if (getService == null)
