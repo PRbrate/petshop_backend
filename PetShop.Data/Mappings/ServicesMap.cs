@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace PetShop.Data.Mappings
 {
-    public class ServicesMap : IEntityTypeConfiguration<Services>
+    public class ServicesMap : IEntityTypeConfiguration<Service>
     {
-        public void Configure(EntityTypeBuilder<Services> builder)
+        public void Configure(EntityTypeBuilder<Service> builder)
         {
             builder.Property(p => p.Name)
                 .IsRequired()

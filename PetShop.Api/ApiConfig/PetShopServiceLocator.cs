@@ -30,6 +30,7 @@ namespace PetShop.Api.ApiConfig
             services.AddScoped<IPetsService, PetsService>();
             services.AddSingleton<EmailService>();
             services.AddMemoryCache();
+            services.AddScoped<IServicesService, ServicesServices>();
             services.AddSingleton<MemoryCacheService>();
             #endregion
 
@@ -42,6 +43,7 @@ namespace PetShop.Api.ApiConfig
             services.AddScoped<ICompaniesRepository, CompaniesRepository>();
             services.AddScoped<IPetsRepository, PetsRepository>();
             services.AddScoped<IServiceGroupRepository, ServiceGroupRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             #endregion
 

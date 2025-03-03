@@ -30,6 +30,9 @@ namespace PetShop.Application.Services
             {
                 return false;
             }
+            getCompany.Status = Status.Inactive;
+            getCompany.UpdatedAt = DateTime.Now;
+            _companiesRepository.Detached(getCompany);
             await _companiesRepository.Delete(getCompany);
             return true;
         }

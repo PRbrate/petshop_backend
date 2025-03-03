@@ -1,12 +1,6 @@
 ﻿using PetShop.Application.DTO;
 using PetShop.Core.Entities;
 using PetShop.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace PetShop.Application.MappingsConfig
 {

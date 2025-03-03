@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PetShop.Data.Context;
@@ -11,9 +12,11 @@ using PetShop.Data.Context;
 namespace PetShop.Data.Migrations
 {
     [DbContext(typeof(PetShopContext))]
-    partial class PetShopContextModelSnapshot : ModelSnapshot
+    [Migration("20250303123643_addStatusInPet")]
+    partial class addStatusInPet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,7 +294,22 @@ namespace PetShop.Data.Migrations
                     b.ToTable("Pets");
                 });
 
-            modelBuilder.Entity("PetShop.Domain.Entities.Service", b =>
+            modelBuilder.Entity("PetShop.Domain.Entities.ServiceGroup", b =>
+                {
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ServiceId", "AppointmentId");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.ToTable("ServiceGroup");
+                });
+
+            modelBuilder.Entity("PetShop.Domain.Entities.Services", b =>
                 {
                     b.Property<int>("ServiceId")
                         .ValueGeneratedOnAdd()
@@ -307,8 +325,8 @@ namespace PetShop.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<double>("Duration")
-                        .HasColumnType("double precision");
+                    b.Property<int>("Duration")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -329,21 +347,6 @@ namespace PetShop.Data.Migrations
                     b.HasKey("ServiceId");
 
                     b.ToTable("Services");
-                });
-
-            modelBuilder.Entity("PetShop.Domain.Entities.ServiceGroup", b =>
-                {
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("AppointmentId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ServiceId", "AppointmentId");
-
-                    b.HasIndex("AppointmentId");
-
-                    b.ToTable("ServiceGroup");
                 });
 
             modelBuilder.Entity("PetShop.Domain.Entities.Users", b =>
@@ -478,7 +481,7 @@ namespace PetShop.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PetShop.Domain.Entities.Service", "Services")
+                    b.HasOne("PetShop.Domain.Entities.Services", "Services")
                         .WithMany("ServiceGroups")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -499,7 +502,7 @@ namespace PetShop.Data.Migrations
                     b.Navigation("Appointments");
                 });
 
-            modelBuilder.Entity("PetShop.Domain.Entities.Service", b =>
+            modelBuilder.Entity("PetShop.Domain.Entities.Services", b =>
                 {
                     b.Navigation("ServiceGroups");
                 });

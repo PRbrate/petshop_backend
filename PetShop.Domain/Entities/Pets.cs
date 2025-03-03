@@ -20,6 +20,7 @@ namespace PetShop.Domain.Entities
         public bool NeedAttention { get; set; } = false;
         public DateTime Birthdate { get; set; }
         public Gender Gender { get; set; }
+        public Status Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
 
