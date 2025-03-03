@@ -3,10 +3,11 @@ using PetShop.Application.DTO;
 using PetShop.Application.MappingsConfig;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Core.Entities;
+using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using PetShop.Domain.Entities.Validations.Services;
 
 namespace PetShop.Application.Services
 {
@@ -29,9 +30,18 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public Task<Response<PetsDto>> DeletePet(int id)
+        public async Task<bool> DeletePet(int id)
         {
-            throw new NotImplementedException();
+            var getPet = await _petsRepository.GetAsync(id);
+            if (getPet == null)
+            {
+                return false;
+            }
+            getPet.Status = Status.Inactive;
+            getPet.UpdatedAt = DateTime.Now;
+            _petsRepository.Detached(getPet);
+            await _petsRepository.Delete(getPet);
+            return true;
         }
 
         public async Task<Response<PetsDto>> GetPetById(int id)
@@ -39,7 +49,7 @@ namespace PetShop.Application.Services
             var response = new Response<PetsDto>();
 
             var pets = await _petsRepository.GetAsync(id);
-            if (pets == null)
+            if (pets == null || pets.Status == Status.Inactive)
             {
                 response.Success = false;
                 response.Errors = "Pet Not Found";
@@ -49,23 +59,24 @@ namespace PetShop.Application.Services
             return response;
         }
 
-        public async Task<Response<List<PetsDto>>> GetPetByUser(int id)
+        public async Task<Response<PaginationResult<PetsDto>>> GetPetByUser(int id, int pageIndex, int pageSize)
         {
-            var response = new Response<List<PetsDto>>();
+            var pets = _petsRepository.GetAllAsync();
+
+            var items = await pets
+                .OrderBy(p => p.FullName)
+                .Where(p=> p.UserId == id && p.Status == Status.Active)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            var totalCount = items.Count();
             var list = new List<PetsDto>();
-            var pets = await _petsRepository.GetByUserId(id);
-            if (pets == null)
-            {
-                response.Success = false;
-                response.Errors = "There is no such pets with this user";
-                return response;
-            }
-            foreach (Pets p in pets)
+            foreach (Pets p in items)
             {
                 list.Add(AutoMapperPets.Map(p));
             }
-
-            response.Data = list;
+            var pag = new PaginationResult<PetsDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<PetsDto>>(pag);
             return response;
         }
 
@@ -75,6 +86,7 @@ namespace PetShop.Application.Services
 
             var items = await pets
                 .OrderBy(p => p.FullName)
+                .Where(p=> p.Status == Status.Active)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
 
@@ -90,12 +102,12 @@ namespace PetShop.Application.Services
         }
 
         public async Task<Response<PaginationResult<PetsDto>>> GetPetsBySpecie(Species specie, int pageIndex, int pageSize)
-        {            
+        {
             var pets = _petsRepository.GetAllAsync();
 
             var items = await pets
                 .OrderBy(p => p.FullName)
-                .Where(x => x.Species == specie)
+                .Where(x => x.Species == specie && x.Status == Status.Active)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
 
@@ -108,7 +120,7 @@ namespace PetShop.Application.Services
             }
             var pag = new PaginationResult<PetsDto>(list, totalCount, pageIndex, pageSize);
             var response = new Response<PaginationResult<PetsDto>>(pag);
-            
+
             return response;
         }
 
@@ -118,7 +130,7 @@ namespace PetShop.Application.Services
 
             var items = await pets
                 .OrderBy(p => p.FullName)
-                .Where(x => x.Gender == gender)
+                .Where(x => x.Gender == gender && x.Status == Status.Active)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
 
@@ -134,15 +146,13 @@ namespace PetShop.Application.Services
 
             return response;
         }
-
-
         public async Task<Response<PaginationResult<PetsDto>>> GetNeedAttention(bool attention, int pageIndex, int pageSize)
         {
             var pets = _petsRepository.GetAllAsync();
 
             var items = await pets
                 .OrderBy(p => p.FullName)
-                .Where(x => x.NeedAttention == attention)
+                .Where(x => x.NeedAttention == attention && x.Status == Status.Active)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
 
@@ -159,9 +169,26 @@ namespace PetShop.Application.Services
             return response;
 
         }
-        public Task<Response<PetsDto>> UpdatePet(PetsDto pet, int id)
+        public async Task<Response<PetsDto>> UpdatePet(PetsDto pet, int id)
         {
-            throw new NotImplementedException();
+            var petByData = await _petsRepository.GetAsync(id);
+            var response = new Response<PetsDto>();
+
+            if (petByData == null || petByData.Status == Status.Inactive)
+            {
+                response.Success = false;
+                response.Errors = "this Pet not found";
+                return response;
+            }
+
+            AutoMapperPets.Map(petByData, pet);
+            petByData.UpdatedAt = DateTime.Now;
+            petByData.setAge();
+            _petsRepository.Detached(petByData);
+            await _petsRepository.Update(petByData);
+
+            return response;
         }
     }
+
 }

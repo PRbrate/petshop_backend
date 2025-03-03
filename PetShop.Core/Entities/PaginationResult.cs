@@ -17,8 +17,6 @@ namespace PetShop.Core.Entities
             TotalPages =  PageSize > 0 ? (int)Math.Ceiling((double)TotalCount / PageSize) : 0;
         }
 
-        public PaginationResult() { }
-
         public List<T> Items { get; set; } = new List<T>();
         public int TotalCount { get; set; }
         public int PageIndex { get; set; }

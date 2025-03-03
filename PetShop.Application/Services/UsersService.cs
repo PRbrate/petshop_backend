@@ -178,6 +178,9 @@ namespace PetShop.Application.Services
             {
                 return false;
             }
+            getUser.Status = Status.Inactive;
+            getUser.UpdatedAt = DateTime.Now;
+            _usersRepository.Detached(getUser);
             await _usersRepository.Delete(getUser);
             return true;
         }
@@ -189,6 +192,7 @@ namespace PetShop.Application.Services
 
             var items = await users
                 .OrderBy(p => p.FullName)
+                .Where(p=> p.Status == Status.Active)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
@@ -212,7 +216,7 @@ namespace PetShop.Application.Services
             var response = new Response<UserDataDto>();
             registrationNumber = new string(registrationNumber.Where(char.IsDigit).ToArray());
             var user = await _usersRepository.GetUserByRegistrationNumber(registrationNumber);
-            if (user == null)
+            if (user == null || user.Status == Status.Inactive)
             {
                 response.Success = false;
                 response.Errors = "There is no such user with that RegistrationNumber on the database";
@@ -226,7 +230,7 @@ namespace PetShop.Application.Services
         {
             var response = new Response<UserDataDto>();
             var user = await _usersRepository.GetByEmailAsync(email);
-            if (user == null)
+            if (user == null || user.Status == Status.Inactive)
             {
                 response.Success = false;
                 response.Errors = "There is no such user with that Email on the database";
@@ -241,7 +245,7 @@ namespace PetShop.Application.Services
 
             var items = await users
                 .OrderBy(u => u.FullName)
-                .Where(x => x.Phone == phoneNumber)
+                .Where(x => x.Phone == phoneNumber && x.Status == Status.Active)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
@@ -262,7 +266,7 @@ namespace PetShop.Application.Services
         {
             var response = new Response<UserDataDto>();
             var user = await _usersRepository.GetAsync(id);
-            if (user == null)
+            if (user == null || user.Status == Status.Inactive)
             {
                 response.Success = false;
                 response.Errors = "There is no such user with that ID on the database";
@@ -279,7 +283,7 @@ namespace PetShop.Application.Services
             var userByIdData = await _usersRepository.GetAsync(id);
             var response = new Response<UserDataDto>();
 
-            if (userByIdData == null)
+            if (userByIdData == null || userByIdData.Status == Status.Inactive)
             {
                 response.Success = false;
                 response.Errors = "this User not found";

@@ -26,7 +26,9 @@ namespace PetShop.Core.Base
 
         public async Task<T> Delete(T entity)
         {
-            var TDelete = _dbSet.Remove(entity);
+            ConverteDateTimeToUtc(entity);
+            _context.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return entity;
 

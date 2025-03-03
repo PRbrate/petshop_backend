@@ -77,11 +77,11 @@ namespace PetShop.Api.Controllers.V1
 
         [HttpGet("GetPetsByUser/{id}")]
         [Authorize(Roles = "Employer, Admin")]
-        public async Task<IActionResult> GetALlPetsByUser(int id)
+        public async Task<IActionResult> GetALlPetsByUser(int id, int pageIndex = 1, int pageSize = 10)
         {
             try
             { 
-                var response = await _petsService.GetPetByUser(id);
+                var response = await _petsService.GetPetByUser(id, pageIndex, pageSize);
 
                 if (!response.Success)
                 {

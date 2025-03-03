@@ -14,10 +14,10 @@ namespace PetShop.Application.Services.Interfaces
     {
         Task<Response<PetsDto>> CreatePet(PetsDto pet);
         Task<Response<PetsDto>> UpdatePet(PetsDto pet, int id);
-        Task<Response<PetsDto>> DeletePet(int id);
+        Task<bool> DeletePet(int id);
         Task<Response<PaginationResult<PetsDto>>> GetPets(int pageIndex, int pageSize);
         Task<Response<PetsDto>> GetPetById(int id);
-        Task<Response<List<PetsDto>>> GetPetByUser(int id);
+        Task<Response<PaginationResult<PetsDto>>> GetPetByUser(int id, int pageIndex, int pageSize);
         Task<Response<PaginationResult<PetsDto>>> GetPetsBySpecie(Species specie, int pageIndex, int pageSize);
         Task<Response<PaginationResult<PetsDto>>> GetPetsByGender(Gender gender, int pageIndex, int pageSize);
         Task<Response<PaginationResult<PetsDto>>> GetNeedAttention(bool attention, int pageIndex, int pageSize);
