@@ -12,7 +12,8 @@ namespace Appointment.Application.Services.Interfaces
         Task<Response<PaginationResult<AppointmentsDto>>> GetByStatus(StatusAppointments status, int pageIndex, int pageSize);
         Task<Response<AppointmentsDto>> GetByPet(int petId);
         Task<Response<PaginationResult<AppointmentsDto>>> GetAll(int pageIndex, int pageSize);
-        Task<bool> DeleteService(int id);
+        Task<bool> DeleteAppointment(int id);
         Task<Response<AppointmentsDto>> UpdateService(int id, AppointmentsDto appointmentsDto);
+        Task<bool> AddServiceAppointment(int appointmentId, List<int> servicesId);
     }
 }

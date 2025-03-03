@@ -1,26 +1,27 @@
 ﻿using Appointment.Application.DTO;
 using Appointment.Application.MappingsConfig;
 using Appointment.Application.Services.Interfaces;
+using Appointment.Data.Repositories;
 using Appointment.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using PetShop.Core.Entities;
-using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Appointment.Application.Services
 {
-    class AppointmentsService : IAppointmentsService
+    public class AppointmentsService : IAppointmentsService
     {
         private readonly IAppointmentsRepository _appointmentsRepository;
         private readonly IServiceRepository _serviceRepository;
+        private readonly IServiceGroupRepository _serviceGroupRepository;
 
-        public AppointmentsService(IAppointmentsRepository appointmentsRepository, IServiceRepository serviceRepository)
+        public AppointmentsService(IAppointmentsRepository appointmentsRepository, IServiceRepository serviceRepository, IServiceGroupRepository serviceGroupRepository)
         {
             _appointmentsRepository = appointmentsRepository;
             _serviceRepository = serviceRepository;
+            _serviceGroupRepository = serviceGroupRepository;
         }
 
         public async Task<Response<AppointmentsDto>> CreateAppointment(AppointmentsDto appointmentsDto)
@@ -35,12 +36,13 @@ namespace Appointment.Application.Services
             }
             var appointments = AutoMapperAppointments.Map(appointmentsDto);
 
+            appointments.Status = Status.Active;
             await _appointmentsRepository.Create(appointments);
             response.Success = true;
             return response;
         }
 
-        public async Task<bool> DeleteService(int id)
+        public async Task<bool> DeleteAppointment(int id)
         {
             var getAppointment = await _appointmentsRepository.GetAsync(id);
             if (getAppointment == null)
@@ -151,12 +153,30 @@ namespace Appointment.Application.Services
             throw new NotImplementedException();
         }
 
-        public async Task<bool> AddServiceAppointment(int appointmentId, List<int> serviceId)
+        public async Task<bool> AddServiceAppointment(int appointmentId, List<int> servicesId)
         {
             var appointment = await _appointmentsRepository.GetAsync(appointmentId);
 
-            var services = _serviceRepository
-            var IdExists =
+            var services = await _serviceRepository.GetIdExist(servicesId);
+
+            double totValue = 0;
+
+            var sgps = new List<ServiceGroup>(); 
+
+            foreach (int i in services)
+            {
+                var sg = new ServiceGroup();
+                sg.ServiceId = i;
+                sg.AppointmentId = appointmentId;
+                sgps.Add(sg);
+                totValue += await _serviceRepository.GetValue(i);
+            }
+
+            await _serviceGroupRepository.AddServiceGroup(sgps);
+            await _appointmentsRepository.AddTotValue(appointment, totValue);
+
+            return true;
+
         }
     }
 }

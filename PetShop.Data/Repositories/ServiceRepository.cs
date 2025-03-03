@@ -26,5 +26,20 @@ namespace PetShop.Data.Repositories
 
             return services;
         }
+        public async Task<List<int>> GetIdExist(List<int> ids)
+        {
+            return _context.Services
+                .Where(e => ids.Contains(e.ServiceId))
+                .Select(e => e.ServiceId)
+                .ToList();
+        }
+
+        public async Task<double> GetValue(int id)
+        {
+            return _context.Services
+                .Where(u => u.ServiceId == id)
+                .Select(u => u.Price) //Select only the required field
+                .FirstOrDefault();
+        }
     }
 }

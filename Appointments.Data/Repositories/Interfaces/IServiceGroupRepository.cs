@@ -3,8 +3,8 @@ using PetShop.Domain.Entities;
 
 namespace Appointment.Data.Repositories.Interfaces
 {
-    public interface IAppointmentsRepository : IRepositoryBase<Appointments>
+    public interface IServiceGroupRepository : IRepositoryBase<ServiceGroup>
     {
-        Task AddTotValue(Appointments apt, double totValue);
+        Task AddServiceGroup(List<ServiceGroup> sg);
     }
 }
