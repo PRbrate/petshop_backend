@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PetShop.Data.Repositories
 {
-    public class ServiceRepository : RepositoryBase<Service>,  IServiceRepository
+    public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
     {
         private readonly PetShopContext _context;
 
@@ -25,6 +25,21 @@ namespace PetShop.Data.Repositories
             var services = await _context.Services.Where(x => x.Name.ToUpper() == name.ToUpper()).FirstOrDefaultAsync();
 
             return services;
+        }
+        public async Task<List<int>> GetIdExist(List<int> ids)
+        {
+            return _context.Services
+                .Where(e => ids.Contains(e.ServiceId))
+                .Select(e => e.ServiceId)
+                .ToList();
+        }
+
+        public async Task<double> GetValue(int id)
+        {
+            return _context.Services
+                .Where(u => u.ServiceId == id)
+                .Select(u => u.Price) //Select only the required field
+                .FirstOrDefault();
         }
     }
 }

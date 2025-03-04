@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Appointments.Application\Appointments.Application.csproj" />
+    <ProjectReference Include="..\Appointments.Data\Appointments.Data.csproj" />
     <ProjectReference Include="..\PetShop.Application\PetShop.Application.csproj" />
     <ProjectReference Include="..\PetShop.Core\PetShop.Core.csproj" />
     <ProjectReference Include="..\PetShop.Data\PetShop.Data.csproj" />

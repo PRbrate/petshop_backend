@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Appointment.Application.Services;
+using Appointment.Application.Services.Interfaces;
+using Appointment.Data.Repositories;
+using Appointment.Data.Repositories.Interfaces;
 using PetShop.Application.Services;
 using PetShop.Application.Services.Interfaces;
 using PetShop.Application.Services.OtherServices;
@@ -9,6 +12,7 @@ using PetShop.Core.Base.Interfaces;
 using PetShop.Core.Extensions.Security;
 using PetShop.Data.Repositories;
 using PetShop.Data.Repositories.Interfaces;
+using PetShop.Domain.Entities;
 using PetShop.Facade.Interfaces;
 using PetShop.Facade.Services;
 
@@ -32,6 +36,7 @@ namespace PetShop.Api.ApiConfig
             services.AddMemoryCache();
             services.AddScoped<IServicesService, ServicesServices>();
             services.AddSingleton<MemoryCacheService>();
+            services.AddScoped<IAppointmentsService, AppointmentsService>();
             #endregion
 
             #region Repositories

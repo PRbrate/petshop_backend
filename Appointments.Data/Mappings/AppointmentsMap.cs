@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PetShop.Domain.Entities;
 using PetShop.Domain.Entities.Enums;
 
-namespace PetShop.Data.Mappings
+namespace Appointment.Data.Mappings
 {
     public class AppointmentsMap : IEntityTypeConfiguration<Appointments>
     {
