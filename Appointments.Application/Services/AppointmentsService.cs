@@ -37,11 +37,11 @@ namespace Appointment.Application.Services
             var appointments = AutoMapperAppointments.Map(appointmentsDto);
 
             appointments.Status = Status.Active;
+            appointments.StatusAppointment = StatusAppointments.inProgress;
             await _appointmentsRepository.Create(appointments);
             response.Success = true;
             return response;
         }
-
         public async Task<bool> DeleteAppointment(int id)
         {
             var getAppointment = await _appointmentsRepository.GetAsync(id);
@@ -56,97 +56,103 @@ namespace Appointment.Application.Services
             return true;
         }
 
-        public async Task<Response<PaginationResult<AppointmentsDto>>> GetAll(int pageIndex, int pageSize)
+        #region gets
+        public async Task<Response<PaginationResult<AppointmentsReturnDto>>> GetAll(int pageIndex, int pageSize)
         {
             var appointments = _appointmentsRepository.GetAllAsync();
-
+            
             var items = await appointments
                 .OrderBy(p => p.AppointmentDate)
                 .Where(p => p.Status == Status.Active)
+                .Include(p => p.ServiceGroups)
+                .ThenInclude(sg => sg.Services)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
 
             var totalCount = items.Count();
-            var list = new List<AppointmentsDto>();
+            var list = new List<AppointmentsReturnDto>();
             foreach (Appointments a in items)
             {
-                list.Add(AutoMapperAppointments.Map(a));
+                list.Add(AutoMapperAppointments.MapReturn(a));
             }
-            var pag = new PaginationResult<AppointmentsDto>(list, totalCount, pageIndex, pageSize);
-            var response = new Response<PaginationResult<AppointmentsDto>>(pag);
+            var pag = new PaginationResult<AppointmentsReturnDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<AppointmentsReturnDto>>(pag);
             return response;
         }
-
-        public async Task<Response<AppointmentsDto>> GetById(int id)
+        public async Task<Response<AppointmentsReturnDto>> GetById(int id)
         {
-            var response = new Response<AppointmentsDto>();
+            var response = new Response<AppointmentsReturnDto>();
 
-            var appointments = await _appointmentsRepository.GetAsync(id);
+            var appointments = await _appointmentsRepository.getAppointment(id);
             if (appointments == null || appointments.Status == Status.Inactive)
             {
                 response.Success = false;
                 response.Errors = "Pet Not Found";
                 return response;
             }
-            response.Data = AutoMapperAppointments.Map(appointments);
+            response.Data = AutoMapperAppointments.MapReturn(appointments);
             return response;
         }
-
-        public async Task<Response<AppointmentsDto>> GetByPet(int petId)
+        public async Task<Response<AppointmentsReturnDto>> GetByPet(int petId)
         {
             var appointments = _appointmentsRepository.GetAllAsync();
 
             var appointments1 = await appointments
                 .OrderBy(p => p.AppointmentDate)
                 .Where(p => p.Status == Status.Active && p.PetId == petId)
+                .Include(p => p.ServiceGroups)
+                .ThenInclude(sg => sg.Services)
                 .FirstOrDefaultAsync();
 
-            var appointment = AutoMapperAppointments.Map(appointments1);
-            var response = new Response<AppointmentsDto>(appointment);
+            var appointment = AutoMapperAppointments.MapReturn(appointments1);
+            var response = new Response<AppointmentsReturnDto>(appointment);
             return response;
         }
-
-        public async Task<Response<PaginationResult<AppointmentsDto>>> GetByStatus(StatusAppointments status, int pageIndex, int pageSize)
+        public async Task<Response<PaginationResult<AppointmentsReturnDto>>> GetByStatus(StatusAppointments status, int pageIndex, int pageSize)
         {
             var appointments = _appointmentsRepository.GetAllAsync();
 
             var items = await appointments
                 .OrderBy(p => p.AppointmentDate)
                 .Where(p => p.Status == Status.Active && p.StatusAppointment == status)
+                .Include(p => p.ServiceGroups)
+                .ThenInclude(sg => sg.Services)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
 
             var totalCount = items.Count();
-            var list = new List<AppointmentsDto>();
+            var list = new List<AppointmentsReturnDto>();
             foreach (Appointments a in items)
             {
-                list.Add(AutoMapperAppointments.Map(a));
+                list.Add(AutoMapperAppointments.MapReturn(a));
             }
-            var pag = new PaginationResult<AppointmentsDto>(list, totalCount, pageIndex, pageSize);
-            var response = new Response<PaginationResult<AppointmentsDto>>(pag);
+            var pag = new PaginationResult<AppointmentsReturnDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<AppointmentsReturnDto>>(pag);
             return response;
         }
-
-        public async Task<Response<PaginationResult<AppointmentsDto>>> GetByUser(int userId, int pageIndex, int pageSize)
+        public async Task<Response<PaginationResult<AppointmentsReturnDto>>> GetByUser(int userId, int pageIndex, int pageSize)
         {
             var appointments = _appointmentsRepository.GetAllAsync();
 
             var items = await appointments
                 .OrderBy(p => p.AppointmentDate)
                 .Where(p => p.Status == Status.Active && p.UserId == userId)
+                .Include(p => p.ServiceGroups)
+                .ThenInclude(sg => sg.Services)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
 
             var totalCount = items.Count();
-            var list = new List<AppointmentsDto>();
+            var list = new List<AppointmentsReturnDto>();
             foreach (Appointments a in items)
             {
-                list.Add(AutoMapperAppointments.Map(a));
+                list.Add(AutoMapperAppointments.MapReturn(a));
             }
-            var pag = new PaginationResult<AppointmentsDto>(list, totalCount, pageIndex, pageSize);
-            var response = new Response<PaginationResult<AppointmentsDto>>(pag);
+            var pag = new PaginationResult<AppointmentsReturnDto>(list, totalCount, pageIndex, pageSize);
+            var response = new Response<PaginationResult<AppointmentsReturnDto>>(pag);
             return response;
         }
+        #endregion
 
         public Task<Response<AppointmentsDto>> UpdateService(int id, AppointmentsDto appointmentsDto)
         {

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PetShop.Core.Base;
 using PetShop.Data.Context;
 using PetShop.Domain.Entities;
+using PetShop.Domain.Entities.Enums;
 
 namespace Appointment.Data.Repositories
 {
@@ -29,6 +30,17 @@ namespace Appointment.Data.Repositories
             _context.Entry(apt).Property(u => u.UpdatedAt).IsModified = true;
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Appointments> getAppointment(int appointmentId)
+        {
+
+            var appointmentsWithService =  _context.Appointments
+                .Include(a => a.ServiceGroups)
+                .ThenInclude(sg => sg.Services)
+                .FirstOrDefault(a => a.AppointmentId == appointmentId);
+
+            return appointmentsWithService;
         }
     }
 }

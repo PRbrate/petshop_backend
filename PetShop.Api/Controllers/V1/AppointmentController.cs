@@ -121,7 +121,7 @@ namespace PetShop.Api.Controllers.V1
             }
         }
 
-        [HttpGet("GetAppointmentByUser/{id}")]
+        [HttpGet("GetAppointmentByUser/{userId}")]
         public async Task<IActionResult> GetAppointmentsByUser(int userId, int pageIndex = 1, int pageSize = 10)
         {
             try
@@ -144,7 +144,7 @@ namespace PetShop.Api.Controllers.V1
             }
         }
 
-        [HttpGet("GetAppointmentByPet/{id}")]
+        [HttpGet("GetAppointmentByPet/{petId}")]
         public async Task<IActionResult> GetAppointmentsByPet(int petId)
         {
             try
@@ -167,7 +167,7 @@ namespace PetShop.Api.Controllers.V1
             }
         }
 
-        [HttpGet("GetAppointmentByStatus/{id}")]
+        [HttpGet("GetAppointmentByStatus")]
         public async Task<IActionResult> GetAppointmentsByStatus(StatusAppointments statusAppointments, int pageIndex = 1, int pageSize = 10)
         {
             try

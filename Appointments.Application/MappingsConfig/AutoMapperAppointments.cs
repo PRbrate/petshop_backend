@@ -1,4 +1,6 @@
 ﻿using Appointment.Application.DTO;
+using PetShop.Application.DTO;
+using PetShop.Application.MappingsConfig;
 using PetShop.Domain.Entities;
 
 namespace Appointment.Application.MappingsConfig
@@ -21,5 +23,9 @@ namespace Appointment.Application.MappingsConfig
         public static AppointmentsDto Map(this Appointments apt) => new(apt.AppointmentId, apt.UserId,
             apt.PetId, DateOnly.FromDateTime(apt.AppointmentDate), apt.StatusAppointment, apt.TotalPrice,
             apt.PaymentStatus, apt.PaymentMethod, apt.Notes);
+
+        public static AppointmentsReturnDto MapReturn(this Appointments apt) => new(apt.AppointmentId, apt.UserId,
+            apt.PetId, DateOnly.FromDateTime(apt.AppointmentDate), apt.StatusAppointment, apt.TotalPrice,
+            apt.PaymentStatus, apt.PaymentMethod, apt.Notes, apt.ServiceGroups.Select(sg => AutoMapperServices.Map(sg.Services)).ToList());
     }
 }

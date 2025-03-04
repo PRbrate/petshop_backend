@@ -1518,6 +1518,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Appointments.Data": "1.0.0",
+          "PetShop.Application": "1.0.0",
           "PetShop.Core": "1.0.0",
           "PetShop.Data": "1.0.0",
           "PetShop.Domain": "1.0.0"
